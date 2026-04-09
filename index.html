@@ -333,6 +333,14 @@
         <label for="task-deadline">Deadline (optional)</label>
         <input type="date" id="task-deadline" />
       </div>
+      <div class="form-group">
+        <label for="task-days">Active days</label>
+        <select id="task-days">
+          <option value="all" selected>Every day</option>
+          <option value="weekdays">Weekdays only (Mon–Fri)</option>
+          <option value="weekends">Weekends only (Sat–Sun)</option>
+        </select>
+      </div>
       <div class="form-group full">
         <label>Active window</label>
         <div class="time-window-row">
@@ -397,8 +405,17 @@ function daysBetween(a,b) {
 
 function randHourlyMs() { return (60 + Math.random() * 60) * 60 * 1000; }
 
+function isActiveDay(t) {
+  const day = new Date().getDay();
+  const isWeekend = day === 0 || day === 6;
+  if (!t.activeDays || t.activeDays === 'all') return true;
+  if (t.activeDays === 'weekdays') return !isWeekend;
+  if (t.activeDays === 'weekends') return isWeekend;
+  return true;
+}
+
 function isHourlyDue(t) {
-  if (t.done || !isInWindow(t)) return false;
+  if (t.done || !isInWindow(t) || !isActiveDay(t)) return false;
   if (t.startDate > today()) return false;
   return !t.nextNotifyAt || Date.now() >= t.nextNotifyAt;
 }
@@ -406,6 +423,7 @@ function isHourlyDue(t) {
 function isDueToday(t) {
   if (t.done) return false;
   if (t.freq === 'hourly-random') return isHourlyDue(t);
+  if (!isActiveDay(t)) return false;
   const td = today();
   if (t.startDate > td) return false;
   const days = daysBetween(t.startDate, td);
@@ -427,6 +445,7 @@ function isOverdue(t) {
 function getStatus(t) {
   if (t.done) return 'done';
   if (isOverdue(t)) return 'overdue';
+  if (!isActiveDay(t)) return 'inactive-day';
   const dueToday = isDueToday(t);
   if (dueToday && !isInWindow(t)) return 'quiet';
   if (dueToday) return 'due';
@@ -479,7 +498,8 @@ function addTask() {
     timeFrom: document.getElementById('time-from').value || '00:00',
     timeTo: document.getElementById('time-to').value || '23:59',
     done: false, createdAt: today(), snoozedUntil: null,
-    nextNotifyAt: isHourly ? Date.now() : null
+    nextNotifyAt: isHourly ? Date.now() : null,
+    activeDays: document.getElementById('task-days').value
   });
   saveTasks();
   document.getElementById('task-name').value='';
@@ -488,6 +508,7 @@ function addTask() {
   document.getElementById('remind-start').value=today();
   document.getElementById('time-from').value='10:00';
   document.getElementById('time-to').value='22:00';
+  document.getElementById('task-days').value='all';
   updateTimePreview();
   render();
 }
@@ -532,7 +553,7 @@ function render() {
     return;
   }
 
-  const order = {overdue:0,due:1,soon:2,quiet:3,ok:4,done:5};
+  const order = {overdue:0,due:1,soon:2,quiet:3,'inactive-day':4,ok:5,done:6};
   const sorted = currentTab==='active'
     ? [...items].sort((a,b)=>(order[getStatus(a)]||4)-(order[getStatus(b)]||4))
     : items;
@@ -551,6 +572,7 @@ function render() {
     else if (s==='quiet') { statusBadge='<span class="badge badge-blue">due today · outside window</span>'; cls+=' quiet'; }
     else if (s==='soon') { statusBadge=`<span class="badge badge-amber">due in ${daysBetween(today(),t.deadline)}d</span>`; cls+=' soon'; }
     else if (s==='done') { statusBadge=`<span class="badge badge-green">done ${formatDate(t.completedAt)}</span>`; cls+=' done'; }
+    else if (s==='inactive-day') { const lbl = t.activeDays==='weekdays'?'resumes monday':'resumes saturday'; statusBadge=`<span class="badge badge-gray">${lbl}</span>`; }
     else if (t.freq === 'hourly-random') { statusBadge = `<span class="badge badge-gray">next at ${nd}</span>`; }
     else { statusBadge = daysBetween(today(),nd)===0 ? '<span class="badge badge-gray">today</span>' : `<span class="badge badge-gray">next ${formatDate(nd)}</span>`; }
 
@@ -582,6 +604,7 @@ function render() {
       </div>
       <div class="task-meta">
         ${t.freq==='hourly-random'?'every 1–2 hrs':(freqLabel[t.freq]||'every '+t.freq+'d')} · window: ${window}
+        ${t.activeDays && t.activeDays!=='all' ? ' · ' + (t.activeDays==='weekdays'?'mon–fri':'sat–sun') : ''}
         ${t.deadline ? ' · deadline '+formatDate(t.deadline) : ''}
       </div>
       ${t.note?`<div class="task-note">${t.note}</div>`:''}
