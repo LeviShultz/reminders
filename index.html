@@ -292,7 +292,10 @@
       <h1>reminders</h1>
       <p id="clock">—</p>
     </div>
-    <button class="notif-btn" id="notif-btn" onclick="requestNotifications()">enable notifications</button>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span id="db-status" style="font-family:'DM Mono',monospace;font-size:10px;color:var(--hint);">connecting...</span>
+      <button class="notif-btn" id="notif-btn" onclick="requestNotifications()">enable notifications</button>
+    </div>
   </header>
 
   <div class="ios-banner" id="ios-banner">
@@ -391,11 +394,27 @@
   <div class="task-list" id="task-list"></div>
 </div>
 
-<script>
-const STORAGE_KEY = 'reminders_pwa_v1';
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getFirestore, collection, doc, onSnapshot, setDoc, deleteDoc, updateDoc } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCPtsMx81ouDrPWQl2ZMlZ39bfYrmEqCyw",
+  authDomain: "reminders-88be0.firebaseapp.com",
+  projectId: "reminders-88be0",
+  storageBucket: "reminders-88be0.firebasestorage.app",
+  messagingSenderId: "640069736715",
+  appId: "1:640069736715:web:3e64afeeb0bff97e6b2a0e"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const tasksCol = collection(db, 'tasks');
+
 let tasks = [];
 let currentTab = 'active';
 let currentCat = 'all';
+let dbReady = false;
 
 function today() { return new Date().toISOString().split('T')[0]; }
 
@@ -432,6 +451,13 @@ function isActiveDay(t) {
   return true;
 }
 
+function isInWindow(t) {
+  if (!t.timeFrom || !t.timeTo) return true;
+  const now = currentTime();
+  if (t.timeFrom <= t.timeTo) return now >= t.timeFrom && now <= t.timeTo;
+  return now >= t.timeFrom || now <= t.timeTo;
+}
+
 function isHourlyDue(t) {
   if (t.done || !isInWindow(t) || !isActiveDay(t)) return false;
   if (t.startDate > today()) return false;
@@ -449,13 +475,6 @@ function isDueToday(t) {
   const days = daysBetween(t.startDate, td);
   const snoozeOk = !t.snoozedUntil || t.snoozedUntil <= td;
   return days % t.freq === 0 && snoozeOk;
-}
-
-function isInWindow(t) {
-  if (!t.timeFrom || !t.timeTo) return true;
-  const now = currentTime();
-  if (t.timeFrom <= t.timeTo) return now >= t.timeFrom && now <= t.timeTo;
-  return now >= t.timeFrom || now <= t.timeTo;
 }
 
 function isOverdue(t) {
@@ -489,9 +508,21 @@ function nextDate(t) {
   return d.toISOString().split('T')[0];
 }
 
-function saveTasks() { localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks)); }
-function loadTasks() {
-  try { tasks = JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]'); } catch(e) { tasks=[]; }
+async function saveTask(task) {
+  await setDoc(doc(db, 'tasks', task.id), task);
+}
+
+async function removeTask(id) {
+  await deleteDoc(doc(db, 'tasks', id));
+}
+
+async function patchTask(id, fields) {
+  await updateDoc(doc(db, 'tasks', id), fields);
+}
+
+function setStatus(msg) {
+  const el = document.getElementById('db-status');
+  if (el) el.textContent = msg;
 }
 
 function updateTimePreview() {
@@ -502,12 +533,12 @@ function updateTimePreview() {
 document.getElementById('time-from').addEventListener('change', updateTimePreview);
 document.getElementById('time-to').addEventListener('change', updateTimePreview);
 
-function addTask() {
+window.addTask = async function() {
   const name = document.getElementById('task-name').value.trim();
   if (!name) { document.getElementById('task-name').focus(); return; }
   const freqVal = document.getElementById('remind-freq').value;
   const isHourly = freqVal === 'hourly-random' || freqVal === 'subhour-random';
-  tasks.unshift({
+  const task = {
     id: Date.now().toString(),
     name,
     startDate: document.getElementById('remind-start').value || today(),
@@ -521,8 +552,8 @@ function addTask() {
     nextNotifyAt: isHourly ? Date.now() : null,
     activeDays: document.getElementById('task-days').value,
     category: document.getElementById('task-category').value
-  });
-  saveTasks();
+  };
+  await saveTask(task);
   document.getElementById('task-name').value='';
   document.getElementById('task-note').value='';
   document.getElementById('task-deadline').value='';
@@ -532,36 +563,37 @@ function addTask() {
   document.getElementById('task-days').value='all';
   document.getElementById('task-category').value='both';
   updateTimePreview();
-  render();
-}
+};
 
-function markDone(id) {
-  const t = tasks.find(x=>x.id===id);
-  if(t){t.done=true;t.completedAt=today();}
-  saveTasks(); render();
-}
-function deleteTask(id) { tasks=tasks.filter(x=>x.id!==id); saveTasks(); render(); }
-function snoozeTask(id) {
+window.markDone = async function(id) {
+  await patchTask(id, { done: true, completedAt: today() });
+};
+
+window.deleteTask = async function(id) {
+  await removeTask(id);
+};
+
+window.snoozeTask = async function(id) {
   const sel = document.getElementById('snooze-'+id);
-  const t = tasks.find(x=>x.id===id);
-  if(!sel||!t) return;
+  if (!sel) return;
   const d = new Date(); d.setDate(d.getDate()+parseInt(sel.value));
-  t.snoozedUntil = d.toISOString().split('T')[0];
-  saveTasks(); render();
-}
-function switchTab(tab) {
+  await patchTask(id, { snoozedUntil: d.toISOString().split('T')[0] });
+};
+
+window.switchTab = function(tab) {
   currentTab=tab;
   document.getElementById('tab-active').classList.toggle('active',tab==='active');
   document.getElementById('tab-done').classList.toggle('active',tab==='done');
   render();
-}
-function switchCat(cat) {
+};
+
+window.switchCat = function(cat) {
   currentCat=cat;
   document.getElementById('cat-all').classList.toggle('active',cat==='all');
   document.getElementById('cat-work').classList.toggle('active',cat==='work');
   document.getElementById('cat-personal').classList.toggle('active',cat==='personal');
   render();
-}
+};
 
 function render() {
   const now = new Date();
@@ -577,6 +609,11 @@ function render() {
   const allItems = currentTab==='active' ? active : done;
   const items = currentCat==='all' ? allItems : allItems.filter(t => !t.category || t.category==='both' || t.category===currentCat);
   const list = document.getElementById('task-list');
+
+  if (!dbReady) {
+    list.innerHTML = `<div class="empty">connecting to firebase...</div>`;
+    return;
+  }
 
   if (!items.length) {
     list.innerHTML = `<div class="empty">${currentTab==='active'?'no active reminders':'nothing completed yet'}</div>`;
@@ -606,7 +643,7 @@ function render() {
     else if (t.freq === 'hourly-random' || t.freq === 'subhour-random') { statusBadge = `<span class="badge badge-gray">next at ${nd}</span>`; }
     else { statusBadge = daysBetween(today(),nd)===0 ? '<span class="badge badge-gray">today</span>' : `<span class="badge badge-gray">next ${formatDate(nd)}</span>`; }
 
-    const window = `${fmt12(t.timeFrom)} – ${fmt12(t.timeTo)}`;
+    const win = `${fmt12(t.timeFrom)} – ${fmt12(t.timeTo)}`;
     const quietHint = s==='quiet' ? `<div class="quiet-hint">will alert after ${fmt12(t.timeFrom)}</div>` : '';
     const snoozePart = s!=='done' ? `
       <div class="snooze-bar">
@@ -634,7 +671,7 @@ function render() {
         ${t.category && t.category!=='both' ? `<span class="badge ${t.category==='work'?'badge-purple':'badge-teal'}">${t.category}</span>` : ''}
       </div>
       <div class="task-meta">
-        ${t.freq==='subhour-random'?'every 20–30 min':t.freq==='hourly-random'?'every 1–2 hrs':(freqLabel[t.freq]||'every '+t.freq+'d')} · window: ${window}
+        ${t.freq==='subhour-random'?'every 20–30 min':t.freq==='hourly-random'?'every 1–2 hrs':(freqLabel[t.freq]||'every '+t.freq+'d')} · window: ${win}
         ${t.activeDays && t.activeDays!=='all' ? ' · ' + (t.activeDays==='weekdays'?'mon–fri':'sat–sun') : ''}
         ${t.deadline ? ' · deadline '+formatDate(t.deadline) : ''}
       </div>
@@ -645,7 +682,7 @@ function render() {
   }).join('');
 }
 
-async function requestNotifications() {
+window.requestNotifications = async function() {
   const btn = document.getElementById('notif-btn');
   if (!('Notification' in window)) { btn.textContent='not supported'; btn.classList.add('denied'); return; }
   const perm = await Notification.requestPermission();
@@ -654,7 +691,7 @@ async function requestNotifications() {
     new Notification('Reminders enabled', { body: 'You will be notified when tasks are due.', icon: 'icon-192.png' });
     registerSW();
   }
-}
+};
 
 function updateNotifBtn(perm) {
   const btn = document.getElementById('notif-btn');
@@ -669,18 +706,18 @@ function registerSW() {
   }
 }
 
-function checkAndNotify() {
+async function checkAndNotify() {
   if (Notification.permission !== 'granted') return;
   const due = tasks.filter(t => { const s = getStatus(t); return s === 'due' || s === 'overdue'; });
-  due.forEach(t => {
+  for (const t of due) {
     if (t.freq === 'hourly-random' || t.freq === 'subhour-random') {
       if (!t.nextNotifyAt || Date.now() >= t.nextNotifyAt) {
         new Notification(t.name, {
           body: t.note || (t.priority === 'high' ? 'High priority reminder.' : 'This task needs your attention.'),
           icon: 'icon-192.png', badge: 'icon-192.png', tag: t.id + '_' + Date.now()
         });
-        t.nextNotifyAt = Date.now() + (t.freq === 'subhour-random' ? randSubhourMs() : randHourlyMs());
-        saveTasks();
+        const next = Date.now() + (t.freq === 'subhour-random' ? randSubhourMs() : randHourlyMs());
+        await patchTask(t.id, { nextNotifyAt: next });
       }
     } else {
       const lastKey = 'notified_' + t.id + '_' + today();
@@ -692,7 +729,7 @@ function checkAndNotify() {
         sessionStorage.setItem(lastKey, '1');
       }
     }
-  });
+  }
 }
 
 function isIOS() {
@@ -702,23 +739,28 @@ function isInStandaloneMode() {
   return window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
 }
 
-window.addEventListener('load', () => {
-  loadTasks();
-  document.getElementById('remind-start').value = today();
-  updateTimePreview();
+document.getElementById('remind-start').value = today();
+updateTimePreview();
+
+if ('Notification' in window) updateNotifBtn(Notification.permission);
+if (isIOS() && !isInStandaloneMode()) {
+  document.getElementById('ios-banner').style.display = 'block';
+}
+if (Notification.permission === 'granted') registerSW();
+
+onSnapshot(tasksCol, (snapshot) => {
+  tasks = snapshot.docs.map(d => d.data());
+  tasks.sort((a,b) => (b.createdAt||'').localeCompare(a.createdAt||'') || (b.id||'').localeCompare(a.id||''));
+  dbReady = true;
+  setStatus('synced');
   render();
-
-  if ('Notification' in window) updateNotifBtn(Notification.permission);
-
-  if (isIOS() && !isInStandaloneMode()) {
-    document.getElementById('ios-banner').style.display = 'block';
-  }
-
-  if (Notification.permission === 'granted') registerSW();
-
-  setInterval(() => { render(); checkAndNotify(); }, 60000);
   checkAndNotify();
+}, (err) => {
+  setStatus('offline');
+  console.error(err);
 });
+
+setInterval(() => { render(); checkAndNotify(); }, 60000);
 </script>
 </body>
 </html>
