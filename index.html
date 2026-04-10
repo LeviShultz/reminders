@@ -252,6 +252,8 @@
     .badge-blue { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue); }
     .badge-green { background: var(--green-bg); color: var(--green); border: 1px solid var(--green); }
     .badge-gray { background: var(--surface2); color: var(--muted); border: 1px solid var(--border); }
+    .badge-purple { background: #1e1535; color: #a78bfa; border: 1px solid #6d4fd4; }
+    .badge-teal { background: #0d2420; color: #34d399; border: 1px solid #0f6e56; }
 
     .task-meta {
       font-size: 12px;
@@ -330,6 +332,14 @@
         </select>
       </div>
       <div class="form-group">
+        <label for="task-category">Category</label>
+        <select id="task-category">
+          <option value="both" selected>Work &amp; personal</option>
+          <option value="work">Work</option>
+          <option value="personal">Personal</option>
+        </select>
+      </div>
+      <div class="form-group">
         <label for="task-deadline">Deadline (optional)</label>
         <input type="date" id="task-deadline" />
       </div>
@@ -365,10 +375,15 @@
     </div>
   </div>
 
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
     <div class="tabs">
       <button class="tab active" id="tab-active" onclick="switchTab('active')">Active <span id="alert-badge" style="display:none" class="alert-dot"></span></button>
       <button class="tab" id="tab-done" onclick="switchTab('done')">Done</button>
+    </div>
+    <div class="tabs" id="cat-tabs">
+      <button class="tab active" id="cat-all" onclick="switchCat('all')">All</button>
+      <button class="tab" id="cat-work" onclick="switchCat('work')">Work</button>
+      <button class="tab" id="cat-personal" onclick="switchCat('personal')">Personal</button>
     </div>
   </div>
 
@@ -379,6 +394,7 @@
 const STORAGE_KEY = 'reminders_pwa_v1';
 let tasks = [];
 let currentTab = 'active';
+let currentCat = 'all';
 
 function today() { return new Date().toISOString().split('T')[0]; }
 
@@ -499,7 +515,8 @@ function addTask() {
     timeTo: document.getElementById('time-to').value || '23:59',
     done: false, createdAt: today(), snoozedUntil: null,
     nextNotifyAt: isHourly ? Date.now() : null,
-    activeDays: document.getElementById('task-days').value
+    activeDays: document.getElementById('task-days').value,
+    category: document.getElementById('task-category').value
   });
   saveTasks();
   document.getElementById('task-name').value='';
@@ -509,6 +526,7 @@ function addTask() {
   document.getElementById('time-from').value='10:00';
   document.getElementById('time-to').value='22:00';
   document.getElementById('task-days').value='all';
+  document.getElementById('task-category').value='both';
   updateTimePreview();
   render();
 }
@@ -533,6 +551,13 @@ function switchTab(tab) {
   document.getElementById('tab-done').classList.toggle('active',tab==='done');
   render();
 }
+function switchCat(cat) {
+  currentCat=cat;
+  document.getElementById('cat-all').classList.toggle('active',cat==='all');
+  document.getElementById('cat-work').classList.toggle('active',cat==='work');
+  document.getElementById('cat-personal').classList.toggle('active',cat==='personal');
+  render();
+}
 
 function render() {
   const now = new Date();
@@ -545,7 +570,8 @@ function render() {
   badge.style.display = alertCount>0 ? 'inline-flex':'none';
   badge.textContent = alertCount;
 
-  const items = currentTab==='active' ? active : done;
+  const allItems = currentTab==='active' ? active : done;
+  const items = currentCat==='all' ? allItems : allItems.filter(t => !t.category || t.category==='both' || t.category===currentCat);
   const list = document.getElementById('task-list');
 
   if (!items.length) {
@@ -601,6 +627,7 @@ function render() {
       <div class="task-badges">
         ${statusBadge}
         <span class="badge ${priMap[t.priority]}">${t.priority}</span>
+        ${t.category && t.category!=='both' ? `<span class="badge ${t.category==='work'?'badge-purple':'badge-teal'}">${t.category}</span>` : ''}
       </div>
       <div class="task-meta">
         ${t.freq==='hourly-random'?'every 1–2 hrs':(freqLabel[t.freq]||'every '+t.freq+'d')} · window: ${window}
