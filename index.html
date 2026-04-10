@@ -314,6 +314,7 @@
       <div class="form-group">
         <label for="remind-freq">Repeat</label>
         <select id="remind-freq">
+          <option value="subhour-random">Every 20–30 minutes (random)</option>
           <option value="hourly-random">Every 1–2 hours (random)</option>
           <option value="1">Every day</option>
           <option value="2">Every 2 days</option>
@@ -420,6 +421,7 @@ function daysBetween(a,b) {
 }
 
 function randHourlyMs() { return (60 + Math.random() * 60) * 60 * 1000; }
+function randSubhourMs() { return (20 + Math.random() * 10) * 60 * 1000; }
 
 function isActiveDay(t) {
   const day = new Date().getDay();
@@ -435,10 +437,12 @@ function isHourlyDue(t) {
   if (t.startDate > today()) return false;
   return !t.nextNotifyAt || Date.now() >= t.nextNotifyAt;
 }
+function isSubhourDue(t) { return isHourlyDue(t); }
 
 function isDueToday(t) {
   if (t.done) return false;
   if (t.freq === 'hourly-random') return isHourlyDue(t);
+  if (t.freq === 'subhour-random') return isSubhourDue(t);
   if (!isActiveDay(t)) return false;
   const td = today();
   if (t.startDate > td) return false;
@@ -470,7 +474,7 @@ function getStatus(t) {
 }
 
 function nextDate(t) {
-  if (t.freq === 'hourly-random') {
+  if (t.freq === 'hourly-random' || t.freq === 'subhour-random') {
     if (!t.nextNotifyAt || Date.now() >= t.nextNotifyAt) return today();
     const d = new Date(t.nextNotifyAt);
     return d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
@@ -502,7 +506,7 @@ function addTask() {
   const name = document.getElementById('task-name').value.trim();
   if (!name) { document.getElementById('task-name').focus(); return; }
   const freqVal = document.getElementById('remind-freq').value;
-  const isHourly = freqVal === 'hourly-random';
+  const isHourly = freqVal === 'hourly-random' || freqVal === 'subhour-random';
   tasks.unshift({
     id: Date.now().toString(),
     name,
@@ -584,7 +588,7 @@ function render() {
     ? [...items].sort((a,b)=>(order[getStatus(a)]||4)-(order[getStatus(b)]||4))
     : items;
 
-  const freqLabel = {'hourly-random':'every 1–2 hrs',1:'daily',2:'every 2d',3:'every 3d',7:'weekly',14:'bi-weekly',30:'monthly'};
+  const freqLabel = {'subhour-random':'every 20–30 min','hourly-random':'every 1–2 hrs',1:'daily',2:'every 2d',3:'every 3d',7:'weekly',14:'bi-weekly',30:'monthly'};
   const priMap = {high:'badge-red',medium:'badge-amber',low:'badge-blue'};
 
   list.innerHTML = sorted.map(t => {
@@ -599,7 +603,7 @@ function render() {
     else if (s==='soon') { statusBadge=`<span class="badge badge-amber">due in ${daysBetween(today(),t.deadline)}d</span>`; cls+=' soon'; }
     else if (s==='done') { statusBadge=`<span class="badge badge-green">done ${formatDate(t.completedAt)}</span>`; cls+=' done'; }
     else if (s==='inactive-day') { const lbl = t.activeDays==='weekdays'?'resumes monday':'resumes saturday'; statusBadge=`<span class="badge badge-gray">${lbl}</span>`; }
-    else if (t.freq === 'hourly-random') { statusBadge = `<span class="badge badge-gray">next at ${nd}</span>`; }
+    else if (t.freq === 'hourly-random' || t.freq === 'subhour-random') { statusBadge = `<span class="badge badge-gray">next at ${nd}</span>`; }
     else { statusBadge = daysBetween(today(),nd)===0 ? '<span class="badge badge-gray">today</span>' : `<span class="badge badge-gray">next ${formatDate(nd)}</span>`; }
 
     const window = `${fmt12(t.timeFrom)} – ${fmt12(t.timeTo)}`;
@@ -630,7 +634,7 @@ function render() {
         ${t.category && t.category!=='both' ? `<span class="badge ${t.category==='work'?'badge-purple':'badge-teal'}">${t.category}</span>` : ''}
       </div>
       <div class="task-meta">
-        ${t.freq==='hourly-random'?'every 1–2 hrs':(freqLabel[t.freq]||'every '+t.freq+'d')} · window: ${window}
+        ${t.freq==='subhour-random'?'every 20–30 min':t.freq==='hourly-random'?'every 1–2 hrs':(freqLabel[t.freq]||'every '+t.freq+'d')} · window: ${window}
         ${t.activeDays && t.activeDays!=='all' ? ' · ' + (t.activeDays==='weekdays'?'mon–fri':'sat–sun') : ''}
         ${t.deadline ? ' · deadline '+formatDate(t.deadline) : ''}
       </div>
@@ -669,13 +673,13 @@ function checkAndNotify() {
   if (Notification.permission !== 'granted') return;
   const due = tasks.filter(t => { const s = getStatus(t); return s === 'due' || s === 'overdue'; });
   due.forEach(t => {
-    if (t.freq === 'hourly-random') {
+    if (t.freq === 'hourly-random' || t.freq === 'subhour-random') {
       if (!t.nextNotifyAt || Date.now() >= t.nextNotifyAt) {
         new Notification(t.name, {
           body: t.note || (t.priority === 'high' ? 'High priority reminder.' : 'This task needs your attention.'),
           icon: 'icon-192.png', badge: 'icon-192.png', tag: t.id + '_' + Date.now()
         });
-        t.nextNotifyAt = Date.now() + randHourlyMs();
+        t.nextNotifyAt = Date.now() + (t.freq === 'subhour-random' ? randSubhourMs() : randHourlyMs());
         saveTasks();
       }
     } else {
