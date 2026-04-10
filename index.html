@@ -511,7 +511,7 @@ function addTask() {
     id: Date.now().toString(),
     name,
     startDate: document.getElementById('remind-start').value || today(),
-    freq: isHourly ? 'hourly-random' : parseInt(freqVal),
+    freq: isHourly ? freqVal : parseInt(freqVal),
     priority: document.getElementById('task-priority').value,
     deadline: document.getElementById('task-deadline').value || null,
     note: document.getElementById('task-note').value.trim(),
