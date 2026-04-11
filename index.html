@@ -543,8 +543,10 @@ function updateTimePreview() {
 document.addEventListener('DOMContentLoaded', () => {
   const tf = document.getElementById('time-from');
   const tt = document.getElementById('time-to');
-  if (tf) { tf.addEventListener('input', updateTimePreview); tf.addEventListener('change', updateTimePreview); }
-  if (tt) { tt.addEventListener('input', updateTimePreview); tt.addEventListener('change', updateTimePreview); }
+  ['input','change','blur','pointerup','touchend'].forEach(ev => {
+    if (tf) tf.addEventListener(ev, updateTimePreview);
+    if (tt) tt.addEventListener(ev, updateTimePreview);
+  });
 });
 
 window.addTask = async function() {
