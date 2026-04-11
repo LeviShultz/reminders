@@ -540,8 +540,12 @@ function updateTimePreview() {
   const t = document.getElementById('time-to').value;
   document.getElementById('time-preview').textContent = `Reminders active ${fmt12(f)} – ${fmt12(t)}`;
 }
-document.getElementById('time-from').addEventListener('change', updateTimePreview);
-document.getElementById('time-to').addEventListener('change', updateTimePreview);
+document.addEventListener('DOMContentLoaded', () => {
+  const tf = document.getElementById('time-from');
+  const tt = document.getElementById('time-to');
+  if (tf) { tf.addEventListener('input', updateTimePreview); tf.addEventListener('change', updateTimePreview); }
+  if (tt) { tt.addEventListener('input', updateTimePreview); tt.addEventListener('change', updateTimePreview); }
+});
 
 window.addTask = async function() {
   const name = document.getElementById('task-name').value.trim();
@@ -760,8 +764,11 @@ function isInStandaloneMode() {
   return window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
 }
 
-document.getElementById('remind-start').value = today();
-updateTimePreview();
+document.addEventListener('DOMContentLoaded', () => {
+  const rs = document.getElementById('remind-start');
+  if (rs) rs.value = today();
+  updateTimePreview();
+});
 
 if ('Notification' in window) updateNotifBtn(Notification.permission);
 if (isIOS() && !isInStandaloneMode()) {
