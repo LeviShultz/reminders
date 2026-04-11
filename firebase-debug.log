@@ -1,0 +1,505 @@
+[debug] [2026-04-11T06:11:16.668Z] ----------------------------------------------------------------------
+[debug] [2026-04-11T06:11:16.671Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only functions
+[debug] [2026-04-11T06:11:16.671Z] CLI Version:   15.14.0
+[debug] [2026-04-11T06:11:16.671Z] Platform:      win32
+[debug] [2026-04-11T06:11:16.671Z] Node Version:  v24.14.1
+[debug] [2026-04-11T06:11:16.671Z] Time:          Sat Apr 11 2026 01:11:16 GMT-0500 (Central Daylight Time)
+[debug] [2026-04-11T06:11:16.671Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-04-11T06:11:18.196Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-04-11T06:11:18.197Z] > authorizing via signed-in user (levi.a.shultz@gmail.com)
+[debug] [2026-04-11T06:11:18.197Z] [iam] checking project reminders-88be0 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2026-04-11T06:11:18.197Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:11:18.198Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:11:18.198Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/reminders-88be0:testIamPermissions [none]
+[debug] [2026-04-11T06:11:18.198Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/reminders-88be0:testIamPermissions  x-goog-user-project=reminders-88be0
+[debug] [2026-04-11T06:11:18.198Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/reminders-88be0:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2026-04-11T06:11:18.344Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/reminders-88be0:testIamPermissions 200
+[debug] [2026-04-11T06:11:18.344Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/reminders-88be0:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2026-04-11T06:11:18.344Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:11:18.344Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:11:18.344Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/reminders-88be0/serviceAccounts/reminders-88be0@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2026-04-11T06:11:18.344Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/reminders-88be0/serviceAccounts/reminders-88be0@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2026-04-11T06:11:18.487Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/reminders-88be0/serviceAccounts/reminders-88be0@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2026-04-11T06:11:18.487Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/reminders-88be0/serviceAccounts/reminders-88be0@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[info] 
+[info] === Deploying to 'reminders-88be0'...
+[info] 
+[info] i  deploying functions 
+[debug] [2026-04-11T06:11:18.490Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:11:18.490Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:11:18.490Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/reminders-88be0 [none]
+[debug] [2026-04-11T06:11:18.558Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/reminders-88be0 200
+[debug] [2026-04-11T06:11:18.558Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/reminders-88be0 {"projectNumber":"640069736715","projectId":"reminders-88be0","lifecycleState":"ACTIVE","name":"reminders","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2026-04-10T01:31:39.284Z"}
+[info] i  functions: preparing codebase default for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[debug] [2026-04-11T06:11:18.560Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:11:18.560Z] Checked if tokens are valid: true, expires at: 1775890309692
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2026-04-11T06:11:18.561Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:11:18.561Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:11:18.561Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/reminders-88be0/services/cloudbuild.googleapis.com [none]
+[debug] [2026-04-11T06:11:18.561Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/reminders-88be0/services/cloudbuild.googleapis.com  x-goog-user-project=reminders-88be0
+[debug] [2026-04-11T06:11:18.562Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/reminders-88be0/services/artifactregistry.googleapis.com [none]
+[debug] [2026-04-11T06:11:18.562Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/reminders-88be0/services/artifactregistry.googleapis.com  x-goog-user-project=reminders-88be0
+[debug] [2026-04-11T06:11:18.819Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/reminders-88be0/services/artifactregistry.googleapis.com 200
+[debug] [2026-04-11T06:11:18.819Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/reminders-88be0/services/artifactregistry.googleapis.com [omitted]
+[warn] !  artifactregistry: missing required API artifactregistry.googleapis.com. Enabling now... 
+[debug] [2026-04-11T06:11:18.820Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:11:18.820Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:11:18.820Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/reminders-88be0/services/artifactregistry.googleapis.com:enable [none]
+[debug] [2026-04-11T06:11:18.820Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/reminders-88be0/services/artifactregistry.googleapis.com:enable  x-goog-user-project=reminders-88be0
+[debug] [2026-04-11T06:11:18.822Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/reminders-88be0/services/cloudbuild.googleapis.com 200
+[debug] [2026-04-11T06:11:18.822Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/reminders-88be0/services/cloudbuild.googleapis.com [omitted]
+[warn] !  functions: missing required API cloudbuild.googleapis.com. Enabling now... 
+[debug] [2026-04-11T06:11:18.822Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:11:18.822Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:11:18.822Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/reminders-88be0/services/cloudbuild.googleapis.com:enable [none]
+[debug] [2026-04-11T06:11:18.822Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/reminders-88be0/services/cloudbuild.googleapis.com:enable  x-goog-user-project=reminders-88be0
+[debug] [2026-04-11T06:11:19.051Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/reminders-88be0/services/artifactregistry.googleapis.com:enable 200
+[debug] [2026-04-11T06:11:19.051Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/reminders-88be0/services/artifactregistry.googleapis.com:enable [omitted]
+[debug] [2026-04-11T06:11:19.311Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/reminders-88be0/services/cloudbuild.googleapis.com:enable 200
+[debug] [2026-04-11T06:11:19.311Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/reminders-88be0/services/cloudbuild.googleapis.com:enable [omitted]
+[debug] [2026-04-11T06:11:29.319Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:11:29.319Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:11:29.319Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/reminders-88be0/adminSdkConfig [none]
+[debug] [2026-04-11T06:11:29.537Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/reminders-88be0/adminSdkConfig 200
+[debug] [2026-04-11T06:11:29.537Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/reminders-88be0/adminSdkConfig {"projectId":"reminders-88be0","storageBucket":"reminders-88be0.firebasestorage.app"}
+[debug] [2026-04-11T06:11:29.537Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:11:29.537Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:11:29.537Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/reminders-88be0/configs [none]
+[debug] [2026-04-11T06:11:29.702Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/reminders-88be0/configs 200
+[debug] [2026-04-11T06:11:29.702Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/reminders-88be0/configs {}
+[debug] [2026-04-11T06:11:29.703Z] Validating nodejs source
+[warn] !  functions: Runtime Node.js 20 will be deprecated on 2026-04-30 and will be decommissioned on 2026-10-30, after which you will not be able to deploy without upgrading. Consider upgrading now to avoid disruption. See https://cloud.google.com/functions/docs/runtime-support for full details on the lifecycle policy 
+[warn] !  functions: Couldn't find firebase-functions package in your source code. Have you run 'npm install'? 
+[debug] [2026-04-11T06:11:29.704Z] getFunctionsSDKVersion encountered error: Cannot find module 'firebase-functions'
+Require stack:
+- C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\runtimes\node\versioning.js
+- C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\runtimes\node\index.js
+- C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\runtimes\index.js
+- C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\prepare.js
+- C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\functionsEmulatorShared.js
+- C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\frameworks\index.js
+- C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\hosting\prepare.js
+- C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\hosting\index.js
+- C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js
+- C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\commands\deploy.js
+- C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\commands\index.js
+- C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\index.js
+- C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\cli.js
+- C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js {"code":"MODULE_NOT_FOUND","requireStack":["C:\\Users\\Chowtime\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\deploy\\functions\\runtimes\\node\\versioning.js","C:\\Users\\Chowtime\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\deploy\\functions\\runtimes\\node\\index.js","C:\\Users\\Chowtime\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\deploy\\functions\\runtimes\\index.js","C:\\Users\\Chowtime\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\deploy\\functions\\prepare.js","C:\\Users\\Chowtime\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\emulator\\functionsEmulatorShared.js","C:\\Users\\Chowtime\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\frameworks\\index.js","C:\\Users\\Chowtime\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\deploy\\hosting\\prepare.js","C:\\Users\\Chowtime\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\deploy\\hosting\\index.js","C:\\Users\\Chowtime\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\deploy\\index.js","C:\\Users\\Chowtime\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\commands\\deploy.js","C:\\Users\\Chowtime\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\commands\\index.js","C:\\Users\\Chowtime\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\index.js","C:\\Users\\Chowtime\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\bin\\cli.js","C:\\Users\\Chowtime\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\bin\\firebase.js"]}
+[debug] [2026-04-11T06:11:29.704Z] checkFunctionsSDKVersion encountered error: Invalid Version:  {}
+[debug] [2026-04-11T06:11:29.705Z] > [functions] package.json contents: {
+  "name": "reminders-functions",
+  "description": "Firebase Cloud Functions for reminders push notifications",
+  "scripts": {
+    "deploy": "firebase deploy --only functions"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^12.0.0",
+    "firebase-functions": "^5.0.0"
+  },
+  "private": true
+}
+[debug] [2026-04-11T06:11:29.705Z] Building nodejs source
+[info] i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
+[debug] [2026-04-11T06:11:29.706Z] Could not parse firebase-functions version '' into semver.
+[debug] [2026-04-11T06:11:29.706Z] Could not find functions.yaml. Must use http discovery
+[debug] [2026-04-11T06:11:29.712Z] Error: Cannot find module 'firebase-functions'
+Require stack:
+- C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\runtimes\node\index.js
+- C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\runtimes\index.js
+- C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\prepare.js
+- C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\functionsEmulatorShared.js
+- C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\frameworks\index.js
+- C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\hosting\prepare.js
+- C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\hosting\index.js
+- C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js
+- C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\commands\deploy.js
+- C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\commands\index.js
+- C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\index.js
+- C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\cli.js
+- C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1456:15)
+    at require.resolve (node:internal/modules/helpers:163:19)
+    at Delegate.findFunctionsBinary (C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\runtimes\node\index.js:101:33)
+    at Delegate.spawnFunctionsProcess (C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\runtimes\node\index.js:131:30)
+    at Delegate.serveAdmin (C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\runtimes\node\index.js:152:35)
+    at Delegate.discoverBuild (C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\runtimes\node\index.js:192:41)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async loadCodebases (C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\prepare.js:340:33)
+    at async prepare (C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\prepare.js:70:24)
+    at async chain (C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:45:9)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2026-04-11T06:13:16.563Z] ----------------------------------------------------------------------
+[debug] [2026-04-11T06:13:16.565Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only functions
+[debug] [2026-04-11T06:13:16.565Z] CLI Version:   15.14.0
+[debug] [2026-04-11T06:13:16.565Z] Platform:      win32
+[debug] [2026-04-11T06:13:16.565Z] Node Version:  v24.14.1
+[debug] [2026-04-11T06:13:16.565Z] Time:          Sat Apr 11 2026 01:13:16 GMT-0500 (Central Daylight Time)
+[debug] [2026-04-11T06:13:16.565Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-04-11T06:13:18.067Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-04-11T06:13:18.067Z] > authorizing via signed-in user (levi.a.shultz@gmail.com)
+[debug] [2026-04-11T06:13:18.067Z] [iam] checking project reminders-88be0 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2026-04-11T06:13:18.068Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:18.068Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:18.069Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/reminders-88be0:testIamPermissions [none]
+[debug] [2026-04-11T06:13:18.069Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/reminders-88be0:testIamPermissions  x-goog-user-project=reminders-88be0
+[debug] [2026-04-11T06:13:18.069Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/reminders-88be0:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2026-04-11T06:13:18.207Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/reminders-88be0:testIamPermissions 200
+[debug] [2026-04-11T06:13:18.207Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/reminders-88be0:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2026-04-11T06:13:18.207Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:18.207Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:18.207Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/reminders-88be0/serviceAccounts/reminders-88be0@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2026-04-11T06:13:18.207Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/reminders-88be0/serviceAccounts/reminders-88be0@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2026-04-11T06:13:18.351Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/reminders-88be0/serviceAccounts/reminders-88be0@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2026-04-11T06:13:18.351Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/reminders-88be0/serviceAccounts/reminders-88be0@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[info] 
+[info] === Deploying to 'reminders-88be0'...
+[info] 
+[info] i  deploying functions 
+[debug] [2026-04-11T06:13:18.354Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:18.354Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:18.354Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/reminders-88be0 [none]
+[debug] [2026-04-11T06:13:18.431Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/reminders-88be0 200
+[debug] [2026-04-11T06:13:18.431Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/reminders-88be0 {"projectNumber":"640069736715","projectId":"reminders-88be0","lifecycleState":"ACTIVE","name":"reminders","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2026-04-10T01:31:39.284Z"}
+[info] i  functions: preparing codebase default for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2026-04-11T06:13:18.433Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:18.433Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:18.434Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/reminders-88be0/adminSdkConfig [none]
+[debug] [2026-04-11T06:13:18.659Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/reminders-88be0/adminSdkConfig 200
+[debug] [2026-04-11T06:13:18.659Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/reminders-88be0/adminSdkConfig {"projectId":"reminders-88be0","storageBucket":"reminders-88be0.firebasestorage.app"}
+[debug] [2026-04-11T06:13:18.659Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:18.659Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:18.659Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/reminders-88be0/configs [none]
+[debug] [2026-04-11T06:13:18.800Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/reminders-88be0/configs 200
+[debug] [2026-04-11T06:13:18.800Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/reminders-88be0/configs {}
+[debug] [2026-04-11T06:13:18.801Z] Validating nodejs source
+[warn] !  functions: Runtime Node.js 20 will be deprecated on 2026-04-30 and will be decommissioned on 2026-10-30, after which you will not be able to deploy without upgrading. Consider upgrading now to avoid disruption. See https://cloud.google.com/functions/docs/runtime-support for full details on the lifecycle policy 
+[warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[warn] !  functions: Please note that there will be breaking changes when you upgrade. 
+[debug] [2026-04-11T06:13:19.537Z] > [functions] package.json contents: {
+  "name": "reminders-functions",
+  "description": "Firebase Cloud Functions for reminders push notifications",
+  "scripts": {
+    "deploy": "firebase deploy --only functions"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^12.0.0",
+    "firebase-functions": "^5.0.0"
+  },
+  "private": true
+}
+[debug] [2026-04-11T06:13:19.537Z] Building nodejs source
+[info] i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
+[debug] [2026-04-11T06:13:19.538Z] Could not find functions.yaml. Must use http discovery
+[debug] [2026-04-11T06:13:19.543Z] Found firebase-functions binary at 'C:\Users\Chowtime\Downloads\reminders\node_modules\.bin\firebase-functions'
+[info] Serving at port 8534
+
+[debug] [2026-04-11T06:13:20.183Z] Got response from /__/functions.yaml {"endpoints":{"sendReminders":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"scheduleTrigger":{"schedule":"every 1 minutes","retryConfig":{"retryCount":null,"maxDoublings":null,"maxRetrySeconds":null,"minBackoffSeconds":null,"maxBackoffSeconds":null},"timeZone":null},"entryPoint":"sendReminders"}},"specVersion":"v1alpha1","requiredAPIs":[{"api":"cloudscheduler.googleapis.com","reason":"Needed for scheduled functions."}],"extensions":{}}
+[info] i  extensions: ensuring required API firebaseextensions.googleapis.com is enabled... 
+[debug] [2026-04-11T06:13:24.203Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:24.203Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:24.203Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/reminders-88be0/services/firebaseextensions.googleapis.com [none]
+[debug] [2026-04-11T06:13:24.203Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/reminders-88be0/services/firebaseextensions.googleapis.com  x-goog-user-project=reminders-88be0
+[debug] [2026-04-11T06:13:24.476Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/reminders-88be0/services/firebaseextensions.googleapis.com 200
+[debug] [2026-04-11T06:13:24.476Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/reminders-88be0/services/firebaseextensions.googleapis.com [omitted]
+[warn] !  extensions: missing required API firebaseextensions.googleapis.com. Enabling now... 
+[debug] [2026-04-11T06:13:24.477Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:24.477Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:24.477Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/reminders-88be0/services/firebaseextensions.googleapis.com:enable [none]
+[debug] [2026-04-11T06:13:24.477Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/reminders-88be0/services/firebaseextensions.googleapis.com:enable  x-goog-user-project=reminders-88be0
+[debug] [2026-04-11T06:13:24.835Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/reminders-88be0/services/firebaseextensions.googleapis.com:enable 200
+[debug] [2026-04-11T06:13:24.835Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/reminders-88be0/services/firebaseextensions.googleapis.com:enable [omitted]
+[debug] [2026-04-11T06:13:34.844Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-04-11T06:13:34.844Z] > authorizing via signed-in user (levi.a.shultz@gmail.com)
+[debug] [2026-04-11T06:13:34.845Z] [iam] checking project reminders-88be0 for permissions ["firebase.projects.get","firebaseextensions.instances.list"]
+[debug] [2026-04-11T06:13:34.846Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:34.846Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:34.846Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/reminders-88be0:testIamPermissions [none]
+[debug] [2026-04-11T06:13:34.846Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/reminders-88be0:testIamPermissions  x-goog-user-project=reminders-88be0
+[debug] [2026-04-11T06:13:34.846Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/reminders-88be0:testIamPermissions {"permissions":["firebase.projects.get","firebaseextensions.instances.list"]}
+[debug] [2026-04-11T06:13:34.991Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/reminders-88be0:testIamPermissions 200
+[debug] [2026-04-11T06:13:34.991Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/reminders-88be0:testIamPermissions {"permissions":["firebase.projects.get","firebaseextensions.instances.list"]}
+[debug] [2026-04-11T06:13:34.991Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:34.991Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:34.991Z] >>> [apiv2][query] GET https://firebaseextensions.googleapis.com/v1beta/projects/reminders-88be0/instances pageSize=100&pageToken=
+[debug] [2026-04-11T06:13:36.632Z] <<< [apiv2][status] GET https://firebaseextensions.googleapis.com/v1beta/projects/reminders-88be0/instances 200
+[debug] [2026-04-11T06:13:36.632Z] <<< [apiv2][body] GET https://firebaseextensions.googleapis.com/v1beta/projects/reminders-88be0/instances {}
+[info] i  functions: preparing functions directory for uploading... 
+[info] i  functions: packaged C:\Users\Chowtime\Downloads\reminders\functions (1.83 KB) for uploading 
+[debug] [2026-04-11T06:13:36.648Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:36.648Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:36.648Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/projects/reminders-88be0/locations/-/functions [none]
+[debug] [2026-04-11T06:13:37.143Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/projects/reminders-88be0/locations/-/functions 200
+[debug] [2026-04-11T06:13:37.143Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/projects/reminders-88be0/locations/-/functions {}
+[debug] [2026-04-11T06:13:37.144Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:37.144Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:37.144Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/-/functions filter=environment%3D%22GEN_2%22
+[debug] [2026-04-11T06:13:37.522Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/-/functions 200
+[debug] [2026-04-11T06:13:37.522Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/-/functions {}
+[info] i  functions: ensuring required API cloudscheduler.googleapis.com is enabled... 
+[debug] [2026-04-11T06:13:37.523Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:37.524Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:37.524Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/640069736715/services/cloudscheduler.googleapis.com [none]
+[debug] [2026-04-11T06:13:37.524Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/640069736715/services/cloudscheduler.googleapis.com  x-goog-user-project=640069736715
+[debug] [2026-04-11T06:13:37.777Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/640069736715/services/cloudscheduler.googleapis.com 200
+[debug] [2026-04-11T06:13:37.777Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/640069736715/services/cloudscheduler.googleapis.com [omitted]
+[warn] !  functions: missing required API cloudscheduler.googleapis.com. Enabling now... 
+[debug] [2026-04-11T06:13:37.777Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:37.777Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:37.777Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/640069736715/services/cloudscheduler.googleapis.com:enable [none]
+[debug] [2026-04-11T06:13:37.777Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/640069736715/services/cloudscheduler.googleapis.com:enable  x-goog-user-project=640069736715
+[debug] [2026-04-11T06:13:38.105Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/640069736715/services/cloudscheduler.googleapis.com:enable 200
+[debug] [2026-04-11T06:13:38.105Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/640069736715/services/cloudscheduler.googleapis.com:enable [omitted]
+[info] i  functions: ensuring required API run.googleapis.com is enabled... 
+[debug] [2026-04-11T06:13:48.111Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:48.111Z] Checked if tokens are valid: true, expires at: 1775890309692
+[info] i  functions: ensuring required API eventarc.googleapis.com is enabled... 
+[debug] [2026-04-11T06:13:48.111Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:48.112Z] Checked if tokens are valid: true, expires at: 1775890309692
+[info] i  functions: ensuring required API pubsub.googleapis.com is enabled... 
+[debug] [2026-04-11T06:13:48.112Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:48.112Z] Checked if tokens are valid: true, expires at: 1775890309692
+[info] i  functions: ensuring required API storage.googleapis.com is enabled... 
+[debug] [2026-04-11T06:13:48.112Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:48.112Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:48.112Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/640069736715/services/run.googleapis.com [none]
+[debug] [2026-04-11T06:13:48.112Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/640069736715/services/run.googleapis.com  x-goog-user-project=640069736715
+[debug] [2026-04-11T06:13:48.113Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/640069736715/services/eventarc.googleapis.com [none]
+[debug] [2026-04-11T06:13:48.113Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/640069736715/services/eventarc.googleapis.com  x-goog-user-project=640069736715
+[debug] [2026-04-11T06:13:48.114Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/640069736715/services/pubsub.googleapis.com [none]
+[debug] [2026-04-11T06:13:48.114Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/640069736715/services/pubsub.googleapis.com  x-goog-user-project=640069736715
+[debug] [2026-04-11T06:13:48.114Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/640069736715/services/storage.googleapis.com [none]
+[debug] [2026-04-11T06:13:48.114Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/640069736715/services/storage.googleapis.com  x-goog-user-project=640069736715
+[debug] [2026-04-11T06:13:48.367Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/640069736715/services/pubsub.googleapis.com 200
+[debug] [2026-04-11T06:13:48.367Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/640069736715/services/pubsub.googleapis.com [omitted]
+[info] +  functions: required API pubsub.googleapis.com is enabled 
+[debug] [2026-04-11T06:13:48.373Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/640069736715/services/run.googleapis.com 200
+[debug] [2026-04-11T06:13:48.374Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/640069736715/services/run.googleapis.com [omitted]
+[warn] !  functions: missing required API run.googleapis.com. Enabling now... 
+[debug] [2026-04-11T06:13:48.374Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:48.374Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:48.374Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/640069736715/services/run.googleapis.com:enable [none]
+[debug] [2026-04-11T06:13:48.374Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/640069736715/services/run.googleapis.com:enable  x-goog-user-project=640069736715
+[debug] [2026-04-11T06:13:48.375Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/640069736715/services/storage.googleapis.com 200
+[debug] [2026-04-11T06:13:48.375Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/640069736715/services/storage.googleapis.com [omitted]
+[info] +  functions: required API storage.googleapis.com is enabled 
+[debug] [2026-04-11T06:13:48.564Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/640069736715/services/eventarc.googleapis.com 200
+[debug] [2026-04-11T06:13:48.564Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/640069736715/services/eventarc.googleapis.com [omitted]
+[warn] !  functions: missing required API eventarc.googleapis.com. Enabling now... 
+[debug] [2026-04-11T06:13:48.565Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:48.565Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:48.565Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/640069736715/services/eventarc.googleapis.com:enable [none]
+[debug] [2026-04-11T06:13:48.565Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/640069736715/services/eventarc.googleapis.com:enable  x-goog-user-project=640069736715
+[debug] [2026-04-11T06:13:48.687Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/640069736715/services/run.googleapis.com:enable 200
+[debug] [2026-04-11T06:13:48.687Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/640069736715/services/run.googleapis.com:enable [omitted]
+[debug] [2026-04-11T06:13:48.815Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/640069736715/services/eventarc.googleapis.com:enable 200
+[debug] [2026-04-11T06:13:48.815Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/640069736715/services/eventarc.googleapis.com:enable [omitted]
+[info] i  functions: generating the service identity for pubsub.googleapis.com... 
+[debug] [2026-04-11T06:13:58.823Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:58.823Z] Checked if tokens are valid: true, expires at: 1775890309692
+[info] i  functions: generating the service identity for eventarc.googleapis.com... 
+[debug] [2026-04-11T06:13:58.824Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:58.824Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:58.824Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1beta1/projects/640069736715/services/pubsub.googleapis.com:generateServiceIdentity [none]
+[debug] [2026-04-11T06:13:58.824Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1beta1/projects/640069736715/services/pubsub.googleapis.com:generateServiceIdentity  x-goog-user-project=640069736715
+[debug] [2026-04-11T06:13:58.824Z] >>> [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/640069736715/services/pubsub.googleapis.com:generateServiceIdentity {}
+[debug] [2026-04-11T06:13:58.825Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1beta1/projects/640069736715/services/eventarc.googleapis.com:generateServiceIdentity [none]
+[debug] [2026-04-11T06:13:58.825Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1beta1/projects/640069736715/services/eventarc.googleapis.com:generateServiceIdentity  x-goog-user-project=640069736715
+[debug] [2026-04-11T06:13:58.825Z] >>> [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/640069736715/services/eventarc.googleapis.com:generateServiceIdentity {}
+[debug] [2026-04-11T06:13:59.687Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1beta1/projects/640069736715/services/pubsub.googleapis.com:generateServiceIdentity 200
+[debug] [2026-04-11T06:13:59.687Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/640069736715/services/pubsub.googleapis.com:generateServiceIdentity {"name":"operations/finished.DONE_OPERATION","done":true,"response":{"@type":"type.googleapis.com/google.api.serviceusage.v1beta1.ServiceIdentity","email":"service-640069736715@gcp-sa-pubsub.iam.gserviceaccount.com","uniqueId":"101812828259048101414"}}
+[debug] [2026-04-11T06:13:59.792Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1beta1/projects/640069736715/services/eventarc.googleapis.com:generateServiceIdentity 200
+[debug] [2026-04-11T06:13:59.792Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/640069736715/services/eventarc.googleapis.com:generateServiceIdentity {"name":"operations/finished.DONE_OPERATION","done":true,"response":{"@type":"type.googleapis.com/google.api.serviceusage.v1beta1.ServiceIdentity","email":"service-640069736715@gcp-sa-eventarc.iam.gserviceaccount.com","uniqueId":"100519650304134869040"}}
+[debug] [2026-04-11T06:13:59.793Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:59.793Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:59.793Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/reminders-88be0 [none]
+[debug] [2026-04-11T06:13:59.893Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/reminders-88be0 200
+[debug] [2026-04-11T06:13:59.893Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/reminders-88be0 {"projectNumber":"640069736715","projectId":"reminders-88be0","lifecycleState":"ACTIVE","name":"reminders","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2026-04-10T01:31:39.284Z"}
+[debug] [2026-04-11T06:13:59.893Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:59.893Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:13:59.893Z] >>> [apiv2][query] GET https://compute.googleapis.com/compute/v1/projects/640069736715 [none]
+[debug] [2026-04-11T06:14:00.069Z] <<< [apiv2][status] GET https://compute.googleapis.com/compute/v1/projects/640069736715 403
+[debug] [2026-04-11T06:14:00.069Z] <<< [apiv2][body] GET https://compute.googleapis.com/compute/v1/projects/640069736715 {"error":{"code":403,"message":"Compute Engine API has not been used in project 640069736715 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=640069736715 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.","errors":[{"message":"Compute Engine API has not been used in project 640069736715 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=640069736715 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.","domain":"usageLimits","reason":"accessNotConfigured","extendedHelp":"https://console.developers.google.com"}],"status":"PERMISSION_DENIED","details":[{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"SERVICE_DISABLED","domain":"googleapis.com","metadata":{"activationUrl":"https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=640069736715","service":"compute.googleapis.com","consumer":"projects/640069736715","containerInfo":"640069736715","serviceTitle":"Compute Engine API"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"Compute Engine API has not been used in project 640069736715 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=640069736715 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."},{"@type":"type.googleapis.com/google.rpc.Help","links":[{"description":"Google developers console API activation","url":"https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=640069736715"}]}]}}
+[debug] [2026-04-11T06:14:00.069Z] unable to look up default compute service account. Falling back to 640069736715-compute@developer.gserviceaccount.com. Error: {"name":"FirebaseError","children":[],"context":{"body":{"error":{"code":403,"message":"Compute Engine API has not been used in project 640069736715 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=640069736715 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.","errors":[{"message":"Compute Engine API has not been used in project 640069736715 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=640069736715 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.","domain":"usageLimits","reason":"accessNotConfigured","extendedHelp":"https://console.developers.google.com"}],"status":"PERMISSION_DENIED","details":[{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"SERVICE_DISABLED","domain":"googleapis.com","metadata":{"activationUrl":"https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=640069736715","service":"compute.googleapis.com","consumer":"projects/640069736715","containerInfo":"640069736715","serviceTitle":"Compute Engine API"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"Compute Engine API has not been used in project 640069736715 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=640069736715 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."},{"@type":"type.googleapis.com/google.rpc.Help","links":[{"description":"Google developers console API activation","url":"https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=640069736715"}]}]}},"response":{"statusCode":403}},"exit":1,"message":"Request to https://compute.googleapis.com/compute/v1/projects/640069736715 had HTTP Error: 403, Compute Engine API has not been used in project 640069736715 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=640069736715 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.","status":403}
+[debug] [2026-04-11T06:14:00.070Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:14:00.070Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:14:00.070Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/reminders-88be0/billingInfo [none]
+[debug] [2026-04-11T06:14:00.225Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/reminders-88be0/billingInfo 200
+[debug] [2026-04-11T06:14:00.225Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/reminders-88be0/billingInfo {"name":"projects/reminders-88be0/billingInfo","projectId":"reminders-88be0","billingAccountName":"billingAccounts/01F262-055212-E42043","billingEnabled":true}
+[debug] [2026-04-11T06:14:00.226Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:14:00.226Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:14:00.226Z] >>> [apiv2][query] POST https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/functions:generateUploadUrl [none]
+[debug] [2026-04-11T06:14:01.518Z] <<< [apiv2][status] POST https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/functions:generateUploadUrl 200
+[debug] [2026-04-11T06:14:01.518Z] <<< [apiv2][body] POST https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/functions:generateUploadUrl {"uploadUrl":"https://storage.googleapis.com/gcf-v2-uploads-640069736715.us-central1.cloudfunctions.appspot.com/e2697007-80ea-4037-b1bb-2451c5398a6f.zip?GoogleAccessId=service-640069736715@gcf-admin-robot.iam.gserviceaccount.com&Expires=1775889836&Signature=J9VeYjmH2erw8vdRXEFxzFCHvhvUj96k9l%2Fz%2BP6TDv4fuPFeBIdda1zLSdMFn%2BQ5kvKzU%2Fp8AyY6Fbx3h0qggxWh7udrcK2RXAXZbPDBuJy583Nl05GWhAaTYqYI%2FK7pAb8cfqVEGig0qSkiSwE5FEzZxKw2r%2FlgR%2BamM9hQHlB00ersudzqYneOJcf09cnqrUMyC2%2F03pMxSSAdtbM1GfPpNgGHRYYoJb6GrkWZ3u6hBmEgHjSYLgR8v4Ov9IssmVO4giP%2F7ChAF1ChiUWnGajSCeOiFtKA4yzZklstRe9NgGLJWnLsqEd7gy1oniriYfpVZvhP%2BGu6FfrLiLzw8w%3D%3D","storageSource":{"bucket":"gcf-v2-uploads-640069736715.us-central1.cloudfunctions.appspot.com","object":"e2697007-80ea-4037-b1bb-2451c5398a6f.zip"}}
+[debug] [2026-04-11T06:14:01.518Z] >>> [apiv2][query] PUT https://storage.googleapis.com/gcf-v2-uploads-640069736715.us-central1.cloudfunctions.appspot.com/e2697007-80ea-4037-b1bb-2451c5398a6f.zip GoogleAccessId=service-640069736715%40gcf-admin-robot.iam.gserviceaccount.com&Expires=1775889836&Signature=J9VeYjmH2erw8vdRXEFxzFCHvhvUj96k9l%2Fz%2BP6TDv4fuPFeBIdda1zLSdMFn%2BQ5kvKzU%2Fp8AyY6Fbx3h0qggxWh7udrcK2RXAXZbPDBuJy583Nl05GWhAaTYqYI%2FK7pAb8cfqVEGig0qSkiSwE5FEzZxKw2r%2FlgR%2BamM9hQHlB00ersudzqYneOJcf09cnqrUMyC2%2F03pMxSSAdtbM1GfPpNgGHRYYoJb6GrkWZ3u6hBmEgHjSYLgR8v4Ov9IssmVO4giP%2F7ChAF1ChiUWnGajSCeOiFtKA4yzZklstRe9NgGLJWnLsqEd7gy1oniriYfpVZvhP%2BGu6FfrLiLzw8w%3D%3D
+[debug] [2026-04-11T06:14:01.518Z] >>> [apiv2][body] PUT https://storage.googleapis.com/gcf-v2-uploads-640069736715.us-central1.cloudfunctions.appspot.com/e2697007-80ea-4037-b1bb-2451c5398a6f.zip [stream]
+[debug] [2026-04-11T06:14:01.709Z] <<< [apiv2][status] PUT https://storage.googleapis.com/gcf-v2-uploads-640069736715.us-central1.cloudfunctions.appspot.com/e2697007-80ea-4037-b1bb-2451c5398a6f.zip 200
+[debug] [2026-04-11T06:14:01.709Z] <<< [apiv2][body] PUT https://storage.googleapis.com/gcf-v2-uploads-640069736715.us-central1.cloudfunctions.appspot.com/e2697007-80ea-4037-b1bb-2451c5398a6f.zip [omitted]
+[info] +  functions: functions source uploaded successfully 
+[info] i  functions: creating Node.js 20 (2nd Gen) function sendReminders(us-central1)... 
+[debug] [2026-04-11T06:14:01.711Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:14:01.711Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:14:01.711Z] >>> [apiv2][query] POST https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/functions functionId=sendReminders
+[debug] [2026-04-11T06:14:01.711Z] >>> [apiv2][body] POST https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/functions {"name":"projects/reminders-88be0/locations/us-central1/functions/sendReminders","buildConfig":{"runtime":"nodejs20","entryPoint":"sendReminders","source":{"storageSource":{"bucket":"gcf-v2-uploads-640069736715.us-central1.cloudfunctions.appspot.com","object":"e2697007-80ea-4037-b1bb-2451c5398a6f.zip"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""}},"serviceConfig":{"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"reminders-88be0\",\"storageBucket\":\"reminders-88be0.firebasestorage.app\"}","GCLOUD_PROJECT":"reminders-88be0","EVENTARC_CLOUD_EVENT_SOURCE":"projects/reminders-88be0/locations/us-central1/services/sendReminders","FUNCTION_TARGET":"sendReminders","LOG_EXECUTION_ID":"true"},"ingressSettings":null,"timeoutSeconds":null,"serviceAccountEmail":null,"availableMemory":"256Mi","minInstanceCount":null,"maxInstanceCount":null,"maxInstanceRequestConcurrency":80,"availableCpu":"1","vpcConnector":null,"vpcConnectorEgressSettings":null,"directVpcNetworkInterface":null,"directVpcEgress":null},"labels":{"deployment-tool":"cli-firebase","deployment-scheduled":"true","firebase-functions-hash":"ac891e4c8e2d735da36089abdc86cc291e012c14"}}
+[debug] [2026-04-11T06:14:03.001Z] <<< [apiv2][status] POST https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/functions 200
+[debug] [2026-04-11T06:14:03.001Z] <<< [apiv2][body] POST https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/functions {"name":"projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-04-11T06:13:58.166477653Z","target":"projects/reminders-88be0/locations/us-central1/functions/sendReminders","verb":"create","cancelRequested":false,"apiVersion":"v2"},"done":false}
+[debug] [2026-04-11T06:14:03.002Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:14:03.002Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:14:03.002Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3 [none]
+[debug] [2026-04-11T06:14:03.132Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3 200
+[debug] [2026-04-11T06:14:03.132Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3 {"name":"projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-04-11T06:13:58.166477653Z","target":"projects/reminders-88be0/locations/us-central1/functions/sendReminders","verb":"create","cancelRequested":false,"apiVersion":"v2"},"done":false}
+[debug] [2026-04-11T06:14:03.636Z] [create-default-us-central1-sendReminders] Retrying task index 0
+[debug] [2026-04-11T06:14:03.636Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:14:03.636Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:14:03.636Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3 [none]
+[debug] [2026-04-11T06:14:03.766Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3 200
+[debug] [2026-04-11T06:14:03.766Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3 {"name":"projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-04-11T06:13:58.166477653Z","target":"projects/reminders-88be0/locations/us-central1/functions/sendReminders","verb":"create","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/reminders-88be0/locations/us-central1/functions/sendReminders","buildConfig":{"runtime":"nodejs20","entryPoint":"sendReminders","source":{"storageSource":{"bucket":"gcf-v2-sources-640069736715-us-central1","object":"sendReminders/function-source.zip","generation":"1775888037861198"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"serviceAccount":"projects/reminders-88be0/serviceAccounts/640069736715-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/reminders-88be0/locations/us-central1/services/sendreminders","timeoutSeconds":60,"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"reminders-88be0\",\"storageBucket\":\"reminders-88be0.firebasestorage.app\"}","GCLOUD_PROJECT":"reminders-88be0","EVENTARC_CLOUD_EVENT_SOURCE":"projects/reminders-88be0/locations/us-central1/services/sendReminders","FUNCTION_TARGET":"sendReminders","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","serviceAccountEmail":"640069736715-compute@developer.gserviceaccount.com","availableMemory":"256Mi","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"labels":{"deployment-tool":"cli-firebase","deployment-scheduled":"true","firebase-functions-hash":"ac891e4c8e2d735da36089abdc86cc291e012c14"},"environment":"GEN_2"},"stages":[{"name":"BUILD","state":"NOT_STARTED","stateMessages":[{"severity":"WARNING","type":"BuildAnalysisWarning","message":"Node.js 20 is no longer supported by the Node.js community as of 30 April, 2026. Node.js 20 will be deprecated on 2026-04-30. We recommend you to upgrade to the latest version of Node.js as soon as possible."}]},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"CREATE_FUNCTION"},"done":false}
+[debug] [2026-04-11T06:14:04.767Z] [create-default-us-central1-sendReminders] Retrying task index 0
+[debug] [2026-04-11T06:14:04.767Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:14:04.767Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:14:04.767Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3 [none]
+[debug] [2026-04-11T06:14:04.883Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3 200
+[debug] [2026-04-11T06:14:04.883Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3 {"name":"projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-04-11T06:13:58.166477653Z","target":"projects/reminders-88be0/locations/us-central1/functions/sendReminders","verb":"create","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/reminders-88be0/locations/us-central1/functions/sendReminders","buildConfig":{"runtime":"nodejs20","entryPoint":"sendReminders","source":{"storageSource":{"bucket":"gcf-v2-sources-640069736715-us-central1","object":"sendReminders/function-source.zip","generation":"1775888037861198"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"serviceAccount":"projects/reminders-88be0/serviceAccounts/640069736715-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/reminders-88be0/locations/us-central1/services/sendreminders","timeoutSeconds":60,"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"reminders-88be0\",\"storageBucket\":\"reminders-88be0.firebasestorage.app\"}","GCLOUD_PROJECT":"reminders-88be0","EVENTARC_CLOUD_EVENT_SOURCE":"projects/reminders-88be0/locations/us-central1/services/sendReminders","FUNCTION_TARGET":"sendReminders","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","serviceAccountEmail":"640069736715-compute@developer.gserviceaccount.com","availableMemory":"256Mi","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"labels":{"deployment-tool":"cli-firebase","deployment-scheduled":"true","firebase-functions-hash":"ac891e4c8e2d735da36089abdc86cc291e012c14"},"environment":"GEN_2"},"stages":[{"name":"BUILD","state":"NOT_STARTED","stateMessages":[{"severity":"WARNING","type":"BuildAnalysisWarning","message":"Node.js 20 is no longer supported by the Node.js community as of 30 April, 2026. Node.js 20 will be deprecated on 2026-04-30. We recommend you to upgrade to the latest version of Node.js as soon as possible."}]},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"CREATE_FUNCTION"},"done":false}
+[debug] [2026-04-11T06:14:06.883Z] [create-default-us-central1-sendReminders] Retrying task index 0
+[debug] [2026-04-11T06:14:06.884Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:14:06.884Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:14:06.884Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3 [none]
+[debug] [2026-04-11T06:14:06.966Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3 200
+[debug] [2026-04-11T06:14:06.966Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3 {"name":"projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-04-11T06:13:58.166477653Z","target":"projects/reminders-88be0/locations/us-central1/functions/sendReminders","verb":"create","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/reminders-88be0/locations/us-central1/functions/sendReminders","buildConfig":{"runtime":"nodejs20","entryPoint":"sendReminders","source":{"storageSource":{"bucket":"gcf-v2-sources-640069736715-us-central1","object":"sendReminders/function-source.zip","generation":"1775888037861198"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"serviceAccount":"projects/reminders-88be0/serviceAccounts/640069736715-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/reminders-88be0/locations/us-central1/services/sendreminders","timeoutSeconds":60,"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"reminders-88be0\",\"storageBucket\":\"reminders-88be0.firebasestorage.app\"}","GCLOUD_PROJECT":"reminders-88be0","EVENTARC_CLOUD_EVENT_SOURCE":"projects/reminders-88be0/locations/us-central1/services/sendReminders","FUNCTION_TARGET":"sendReminders","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","serviceAccountEmail":"640069736715-compute@developer.gserviceaccount.com","availableMemory":"256Mi","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"labels":{"deployment-tool":"cli-firebase","deployment-scheduled":"true","firebase-functions-hash":"ac891e4c8e2d735da36089abdc86cc291e012c14"},"environment":"GEN_2"},"stages":[{"name":"BUILD","state":"NOT_STARTED","stateMessages":[{"severity":"WARNING","type":"BuildAnalysisWarning","message":"Node.js 20 is no longer supported by the Node.js community as of 30 April, 2026. Node.js 20 will be deprecated on 2026-04-30. We recommend you to upgrade to the latest version of Node.js as soon as possible."}]},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"CREATE_FUNCTION"},"done":false}
+[debug] [2026-04-11T06:14:10.967Z] [create-default-us-central1-sendReminders] Retrying task index 0
+[debug] [2026-04-11T06:14:10.967Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:14:10.967Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:14:10.967Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3 [none]
+[debug] [2026-04-11T06:14:11.052Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3 200
+[debug] [2026-04-11T06:14:11.052Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3 {"name":"projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-04-11T06:13:58.166477653Z","target":"projects/reminders-88be0/locations/us-central1/functions/sendReminders","verb":"create","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/reminders-88be0/locations/us-central1/functions/sendReminders","buildConfig":{"runtime":"nodejs20","entryPoint":"sendReminders","source":{"storageSource":{"bucket":"gcf-v2-sources-640069736715-us-central1","object":"sendReminders/function-source.zip","generation":"1775888037861198"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"serviceAccount":"projects/reminders-88be0/serviceAccounts/640069736715-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/reminders-88be0/locations/us-central1/services/sendreminders","timeoutSeconds":60,"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"reminders-88be0\",\"storageBucket\":\"reminders-88be0.firebasestorage.app\"}","GCLOUD_PROJECT":"reminders-88be0","EVENTARC_CLOUD_EVENT_SOURCE":"projects/reminders-88be0/locations/us-central1/services/sendReminders","FUNCTION_TARGET":"sendReminders","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","serviceAccountEmail":"640069736715-compute@developer.gserviceaccount.com","availableMemory":"256Mi","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"labels":{"deployment-tool":"cli-firebase","deployment-scheduled":"true","firebase-functions-hash":"ac891e4c8e2d735da36089abdc86cc291e012c14"},"environment":"GEN_2"},"stages":[{"name":"BUILD","state":"NOT_STARTED","stateMessages":[{"severity":"WARNING","type":"BuildAnalysisWarning","message":"Node.js 20 is no longer supported by the Node.js community as of 30 April, 2026. Node.js 20 will be deprecated on 2026-04-30. We recommend you to upgrade to the latest version of Node.js as soon as possible."}]},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"CREATE_FUNCTION"},"done":false}
+[debug] [2026-04-11T06:14:19.053Z] [create-default-us-central1-sendReminders] Retrying task index 0
+[debug] [2026-04-11T06:14:19.054Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:14:19.054Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:14:19.054Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3 [none]
+[debug] [2026-04-11T06:14:19.227Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3 200
+[debug] [2026-04-11T06:14:19.227Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3 {"name":"projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-04-11T06:13:58.166477653Z","target":"projects/reminders-88be0/locations/us-central1/functions/sendReminders","verb":"create","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/reminders-88be0/locations/us-central1/functions/sendReminders","buildConfig":{"runtime":"nodejs20","entryPoint":"sendReminders","source":{"storageSource":{"bucket":"gcf-v2-sources-640069736715-us-central1","object":"sendReminders/function-source.zip","generation":"1775888037861198"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"serviceAccount":"projects/reminders-88be0/serviceAccounts/640069736715-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/reminders-88be0/locations/us-central1/services/sendreminders","timeoutSeconds":60,"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"reminders-88be0\",\"storageBucket\":\"reminders-88be0.firebasestorage.app\"}","GCLOUD_PROJECT":"reminders-88be0","EVENTARC_CLOUD_EVENT_SOURCE":"projects/reminders-88be0/locations/us-central1/services/sendReminders","FUNCTION_TARGET":"sendReminders","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","serviceAccountEmail":"640069736715-compute@developer.gserviceaccount.com","availableMemory":"256Mi","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"labels":{"deployment-tool":"cli-firebase","deployment-scheduled":"true","firebase-functions-hash":"ac891e4c8e2d735da36089abdc86cc291e012c14"},"environment":"GEN_2"},"stages":[{"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/640069736715/locations/us-central1/builds/0208d06a-de96-46d3-90d8-442b2a582c7c","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/0208d06a-de96-46d3-90d8-442b2a582c7c?project=640069736715"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"CREATE_FUNCTION","buildName":"projects/640069736715/locations/us-central1/builds/0208d06a-de96-46d3-90d8-442b2a582c7c"},"done":false}
+[debug] [2026-04-11T06:14:29.227Z] [create-default-us-central1-sendReminders] Retrying task index 0
+[debug] [2026-04-11T06:14:29.227Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:14:29.227Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:14:29.227Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3 [none]
+[debug] [2026-04-11T06:14:29.409Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3 200
+[debug] [2026-04-11T06:14:29.409Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3 {"name":"projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-04-11T06:13:58.166477653Z","target":"projects/reminders-88be0/locations/us-central1/functions/sendReminders","verb":"create","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/reminders-88be0/locations/us-central1/functions/sendReminders","buildConfig":{"runtime":"nodejs20","entryPoint":"sendReminders","source":{"storageSource":{"bucket":"gcf-v2-sources-640069736715-us-central1","object":"sendReminders/function-source.zip","generation":"1775888037861198"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"serviceAccount":"projects/reminders-88be0/serviceAccounts/640069736715-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/reminders-88be0/locations/us-central1/services/sendreminders","timeoutSeconds":60,"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"reminders-88be0\",\"storageBucket\":\"reminders-88be0.firebasestorage.app\"}","GCLOUD_PROJECT":"reminders-88be0","EVENTARC_CLOUD_EVENT_SOURCE":"projects/reminders-88be0/locations/us-central1/services/sendReminders","FUNCTION_TARGET":"sendReminders","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","serviceAccountEmail":"640069736715-compute@developer.gserviceaccount.com","availableMemory":"256Mi","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"labels":{"deployment-tool":"cli-firebase","deployment-scheduled":"true","firebase-functions-hash":"ac891e4c8e2d735da36089abdc86cc291e012c14"},"environment":"GEN_2"},"stages":[{"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/640069736715/locations/us-central1/builds/0208d06a-de96-46d3-90d8-442b2a582c7c","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/0208d06a-de96-46d3-90d8-442b2a582c7c?project=640069736715"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"CREATE_FUNCTION","buildName":"projects/640069736715/locations/us-central1/builds/0208d06a-de96-46d3-90d8-442b2a582c7c"},"done":false}
+[debug] [2026-04-11T06:14:39.410Z] [create-default-us-central1-sendReminders] Retrying task index 0
+[debug] [2026-04-11T06:14:39.410Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:14:39.410Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:14:39.410Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3 [none]
+[debug] [2026-04-11T06:14:39.586Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3 200
+[debug] [2026-04-11T06:14:39.586Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3 {"name":"projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-04-11T06:13:58.166477653Z","target":"projects/reminders-88be0/locations/us-central1/functions/sendReminders","verb":"create","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/reminders-88be0/locations/us-central1/functions/sendReminders","buildConfig":{"runtime":"nodejs20","entryPoint":"sendReminders","source":{"storageSource":{"bucket":"gcf-v2-sources-640069736715-us-central1","object":"sendReminders/function-source.zip","generation":"1775888037861198"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"serviceAccount":"projects/reminders-88be0/serviceAccounts/640069736715-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/reminders-88be0/locations/us-central1/services/sendreminders","timeoutSeconds":60,"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"reminders-88be0\",\"storageBucket\":\"reminders-88be0.firebasestorage.app\"}","GCLOUD_PROJECT":"reminders-88be0","EVENTARC_CLOUD_EVENT_SOURCE":"projects/reminders-88be0/locations/us-central1/services/sendReminders","FUNCTION_TARGET":"sendReminders","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","serviceAccountEmail":"640069736715-compute@developer.gserviceaccount.com","availableMemory":"256Mi","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"labels":{"deployment-tool":"cli-firebase","deployment-scheduled":"true","firebase-functions-hash":"ac891e4c8e2d735da36089abdc86cc291e012c14"},"environment":"GEN_2"},"stages":[{"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/640069736715/locations/us-central1/builds/0208d06a-de96-46d3-90d8-442b2a582c7c","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/0208d06a-de96-46d3-90d8-442b2a582c7c?project=640069736715"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"CREATE_FUNCTION","buildName":"projects/640069736715/locations/us-central1/builds/0208d06a-de96-46d3-90d8-442b2a582c7c"},"done":false}
+[debug] [2026-04-11T06:14:49.588Z] [create-default-us-central1-sendReminders] Retrying task index 0
+[debug] [2026-04-11T06:14:49.588Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:14:49.588Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:14:49.588Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3 [none]
+[debug] [2026-04-11T06:14:49.700Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3 200
+[debug] [2026-04-11T06:14:49.700Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3 {"name":"projects/reminders-88be0/locations/us-central1/operations/operation-1775888037047-64f29279bed86-09508cde-88bb33a3","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2026-04-11T06:13:58.166477653Z","endTime":"2026-04-11T06:14:36.951409995Z","target":"projects/reminders-88be0/locations/us-central1/functions/sendReminders","verb":"create","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/reminders-88be0/locations/us-central1/functions/sendReminders","buildConfig":{"runtime":"nodejs20","entryPoint":"sendReminders","source":{"storageSource":{"bucket":"gcf-v2-sources-640069736715-us-central1","object":"sendReminders/function-source.zip","generation":"1775888037861198"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"serviceAccount":"projects/reminders-88be0/serviceAccounts/640069736715-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/reminders-88be0/locations/us-central1/services/sendreminders","timeoutSeconds":60,"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"reminders-88be0\",\"storageBucket\":\"reminders-88be0.firebasestorage.app\"}","GCLOUD_PROJECT":"reminders-88be0","EVENTARC_CLOUD_EVENT_SOURCE":"projects/reminders-88be0/locations/us-central1/services/sendReminders","FUNCTION_TARGET":"sendReminders","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","serviceAccountEmail":"640069736715-compute@developer.gserviceaccount.com","availableMemory":"256Mi","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"labels":{"deployment-tool":"cli-firebase","deployment-scheduled":"true","firebase-functions-hash":"ac891e4c8e2d735da36089abdc86cc291e012c14"},"environment":"GEN_2"},"stages":[{"name":"ARTIFACT_REGISTRY","message":"Deleting function artifacts in Artifact Registry","state":"COMPLETE"},{"name":"SERVICE","message":"Deleting Cloud Run service","state":"COMPLETE","resource":"projects/reminders-88be0/locations/us-central1/services/sendreminders"}],"operationType":"CREATE_FUNCTION"},"done":true,"error":{"code":3,"message":"Build failed with status: FAILURE. Could not build the function due to a missing permission on the build service account. If you didn't revoke that permission explicitly, this could be caused by a change in the organization policies. Please refer to the following documentation for more details and resolution: https://cloud.google.com/functions/docs/troubleshooting#build-service-account\n You can also view the logs at https://console.cloud.google.com/cloud-build/builds;region=us-central1/0208d06a-de96-46d3-90d8-442b2a582c7c?project=640069736715.\n"}}
+[debug] [2026-04-11T06:14:49.700Z] Got source token undefined for region us-central1
+[error] Build failed with status: FAILURE. Could not build the function due to a missing permission on the build service account. If you didn't revoke that permission explicitly, this could be caused by a change in the organization policies. Please refer to the following documentation for more details and resolution: https://cloud.google.com/functions/docs/troubleshooting#build-service-account
+ You can also view the logs at https://console.cloud.google.com/cloud-build/builds;region=us-central1/0208d06a-de96-46d3-90d8-442b2a582c7c?project=640069736715.
+
+[debug] [2026-04-11T06:14:49.702Z] Total Function Deployment time: 47990
+[debug] [2026-04-11T06:14:49.702Z] 1 Functions Deployed
+[debug] [2026-04-11T06:14:49.702Z] 1 Functions Errored
+[debug] [2026-04-11T06:14:49.702Z] 0 Function Deployments Aborted
+[debug] [2026-04-11T06:14:49.702Z] Average Function Deployment time: 47990
+[info] 
+[info] Functions deploy had errors with the following functions:
+	sendReminders(us-central1)
+[debug] [2026-04-11T06:14:49.702Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:14:49.702Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:14:49.703Z] >>> [apiv2][query] GET https://artifactregistry.googleapis.com/v1/projects/reminders-88be0/locations/us-central1/repositories/gcf-artifacts [none]
+[debug] [2026-04-11T06:14:49.930Z] <<< [apiv2][status] GET https://artifactregistry.googleapis.com/v1/projects/reminders-88be0/locations/us-central1/repositories/gcf-artifacts 200
+[debug] [2026-04-11T06:14:49.930Z] <<< [apiv2][body] GET https://artifactregistry.googleapis.com/v1/projects/reminders-88be0/locations/us-central1/repositories/gcf-artifacts {"name":"projects/reminders-88be0/locations/us-central1/repositories/gcf-artifacts","format":"DOCKER","description":"This repository is created and used by Cloud Functions for storing function docker images.","labels":{"goog-managed-by":"cloudfunctions"},"createTime":"2026-04-11T06:14:06.736105Z","updateTime":"2026-04-11T06:14:06.736105Z","mode":"STANDARD_REPOSITORY","vulnerabilityScanningConfig":{"lastEnableTime":"2026-04-11T06:13:58.371912655Z","enablementState":"SCANNING_DISABLED","enablementStateReason":"API containerscanning.googleapis.com is not enabled."},"satisfiesPzi":true,"registryUri":"us-central1-docker.pkg.dev/reminders-88be0/gcf-artifacts"}
+[warn] !  functions: No cleanup policy detected for repositories in us-central1. This may result in a small monthly bill as container images accumulate over time. 
+[info] i  functions: Configuring cleanup policy for repository in us-central1. Images older than 20 days will be automatically deleted. 
+[debug] [2026-04-11T06:15:12.856Z] Setting up artifact cleanup policy for region us-central1
+[debug] [2026-04-11T06:15:12.856Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:15:12.857Z] Checked if tokens are valid: true, expires at: 1775890309692
+[debug] [2026-04-11T06:15:12.857Z] >>> [apiv2][query] PATCH https://artifactregistry.googleapis.com/v1/projects/reminders-88be0/locations/us-central1/repositories/gcf-artifacts updateMask=name%2CcleanupPolicies%2CcleanupPolicyDryRun%2Clabels
+[debug] [2026-04-11T06:15:12.857Z] >>> [apiv2][body] PATCH https://artifactregistry.googleapis.com/v1/projects/reminders-88be0/locations/us-central1/repositories/gcf-artifacts {"name":"projects/reminders-88be0/locations/us-central1/repositories/gcf-artifacts","cleanupPolicies":{"firebase-functions-cleanup":{"id":"firebase-functions-cleanup","condition":{"tagState":"ANY","olderThan":"1728000s"},"action":"DELETE"}},"cleanupPolicyDryRun":false,"labels":{"goog-managed-by":"cloudfunctions"}}
+[debug] [2026-04-11T06:15:13.091Z] <<< [apiv2][status] PATCH https://artifactregistry.googleapis.com/v1/projects/reminders-88be0/locations/us-central1/repositories/gcf-artifacts 200
+[debug] [2026-04-11T06:15:13.091Z] <<< [apiv2][body] PATCH https://artifactregistry.googleapis.com/v1/projects/reminders-88be0/locations/us-central1/repositories/gcf-artifacts {"name":"projects/reminders-88be0/locations/us-central1/repositories/gcf-artifacts","format":"DOCKER","description":"This repository is created and used by Cloud Functions for storing function docker images.","labels":{"goog-managed-by":"cloudfunctions"},"createTime":"2026-04-11T06:14:06.736105Z","updateTime":"2026-04-11T06:15:08.246570Z","mode":"STANDARD_REPOSITORY","cleanupPolicies":{"firebase-functions-cleanup":{"id":"firebase-functions-cleanup","action":"DELETE","condition":{"tagState":"ANY","olderThan":"1728000s"}}},"vulnerabilityScanningConfig":{"lastEnableTime":"2026-04-11T06:13:58.371912655Z","enablementState":"SCANNING_DISABLED","enablementStateReason":"API containerscanning.googleapis.com is not enabled."},"satisfiesPzi":true}
+[info] i  functions: Configured cleanup policy for repository in us-central1. 
+[debug] [2026-04-11T06:15:13.092Z] Functions deploy failed.
+[debug] [2026-04-11T06:15:13.092Z] {
+  "endpoint": {
+    "id": "sendReminders",
+    "project": "reminders-88be0",
+    "region": "us-central1",
+    "entryPoint": "sendReminders",
+    "platform": "gcfv2",
+    "runtime": "nodejs20",
+    "scheduleTrigger": {
+      "schedule": "every 1 minutes",
+      "timeZone": null,
+      "retryConfig": {
+        "maxBackoffSeconds": null,
+        "minBackoffSeconds": null,
+        "maxRetrySeconds": null,
+        "retryCount": null,
+        "maxDoublings": null
+      }
+    },
+    "labels": {
+      "deployment-tool": "cli-firebase"
+    },
+    "serviceAccount": null,
+    "ingressSettings": null,
+    "availableMemoryMb": null,
+    "timeoutSeconds": null,
+    "maxInstances": null,
+    "minInstances": null,
+    "concurrency": 80,
+    "vpc": null,
+    "environmentVariables": {
+      "FIREBASE_CONFIG": "{\"projectId\":\"reminders-88be0\",\"storageBucket\":\"reminders-88be0.firebasestorage.app\"}",
+      "GCLOUD_PROJECT": "reminders-88be0",
+      "EVENTARC_CLOUD_EVENT_SOURCE": "projects/reminders-88be0/locations/us-central1/services/sendReminders"
+    },
+    "codebase": "default",
+    "cpu": 1,
+    "targetedByOnly": false,
+    "hash": "ac891e4c8e2d735da36089abdc86cc291e012c14"
+  },
+  "op": "create",
+  "original": {
+    "name": "FirebaseError",
+    "children": [],
+    "exit": 1,
+    "message": "Build failed with status: FAILURE. Could not build the function due to a missing permission on the build service account. If you didn't revoke that permission explicitly, this could be caused by a change in the organization policies. Please refer to the following documentation for more details and resolution: https://cloud.google.com/functions/docs/troubleshooting#build-service-account\n You can also view the logs at https://console.cloud.google.com/cloud-build/builds;region=us-central1/0208d06a-de96-46d3-90d8-442b2a582c7c?project=640069736715.\n",
+    "original": {
+      "code": 3,
+      "message": "Build failed with status: FAILURE. Could not build the function due to a missing permission on the build service account. If you didn't revoke that permission explicitly, this could be caused by a change in the organization policies. Please refer to the following documentation for more details and resolution: https://cloud.google.com/functions/docs/troubleshooting#build-service-account\n You can also view the logs at https://console.cloud.google.com/cloud-build/builds;region=us-central1/0208d06a-de96-46d3-90d8-442b2a582c7c?project=640069736715.\n"
+    },
+    "status": 3,
+    "code": 3
+  }
+}
+[debug] [2026-04-11T06:15:13.093Z] Error: Failed to create function sendReminders in region us-central1
+    at C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:319:27
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async Fabricator.createV2Function (C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:298:30)
+    at async Fabricator.createEndpoint (C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:140:13)
+    at async handle (C:\Users\Chowtime\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:92:17)
+[error] 
+[error] Error: There was an error deploying functions
