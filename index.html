@@ -292,9 +292,14 @@
       <h1>reminders</h1>
       <p id="clock">—</p>
     </div>
-    <div style="display:flex;align-items:center;gap:10px;">
-      <span id="db-status" style="font-family:'DM Mono',monospace;font-size:10px;color:var(--hint);">connecting...</span>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
       <button class="notif-btn" id="notif-btn" onclick="requestNotifications()">enable notifications</button>
+      <div id="debug-panel" style="display:none;font-family:'DM Mono',monospace;font-size:10px;text-align:right;line-height:1.8;">
+        <span id="status-db" style="color:var(--hint);">db: —</span> ·
+        <span id="status-sw" style="color:var(--hint);">sw: —</span> ·
+        <span id="status-token" style="color:var(--hint);">token: —</span>
+        <br><button onclick="sendTestNotif()" style="font-family:'DM Mono',monospace;font-size:10px;padding:2px 8px;border-radius:4px;border:1px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;margin-top:2px;">send test notif</button>
+      </div>
     </div>
   </header>
 
@@ -530,9 +535,11 @@ async function patchTask(id, fields) {
   await updateDoc(doc(db, 'tasks', id), fields);
 }
 
-function setStatus(msg) {
-  const el = document.getElementById('db-status');
-  if (el) el.textContent = msg;
+function setStatus(msg, type='db') {
+  const panel = document.getElementById('debug-panel');
+  if (panel) panel.style.display = 'block';
+  const el = document.getElementById('status-' + type);
+  if (el) el.textContent = type + ': ' + msg;
 }
 
 function updateTimePreview() {
@@ -704,24 +711,34 @@ window.requestNotifications = async function() {
   const perm = await Notification.requestPermission();
   if (perm !== 'granted') { updateNotifBtn(perm); return; }
   updateNotifBtn(perm);
+  btn.textContent = 'registering...';
+  setStatus('registering...', 'sw');
+  setStatus('waiting...', 'token');
   try {
-    await registerSW();
+    const reg = await registerSW();
+    if (!reg) { btn.textContent = 'sw failed'; return; }
+    setStatus('getting token...', 'token');
     const token = await getToken(messaging, {
       vapidKey: 'BFLqkZT97DiXu_aEejfPk0vufdmVgRdukdtoW7vHnzpTWfbXQR_P9e_BOzaf75ki3ObP2RUauCnH2MLrs3DOWbM',
-      serviceWorkerRegistration: swReg
+      serviceWorkerRegistration: reg
     });
     if (token) {
       const deviceId = getDeviceId();
-      await setDoc(doc(db, 'tokens', deviceId), {
-        token,
-        updatedAt: Date.now(),
-        deviceId
-      });
-      setStatus('notifications on');
+      await setDoc(doc(db, 'tokens', deviceId), { token, updatedAt: Date.now(), deviceId });
+      setStatus('saved ✓', 'token');
+      btn.textContent = 'notifications on';
+      btn.classList.add('granted');
+      console.log('FCM token:', token);
+    } else {
+      btn.textContent = 'token empty';
+      setStatus('empty – check APNs', 'token');
+      console.error('FCM returned empty token');
     }
   } catch(e) {
-    console.error('FCM token error:', e);
-    btn.textContent = 'notification error';
+    console.error('FCM token error:', e.code, e.message);
+    btn.textContent = 'notif error';
+    setStatus(e.code || e.message, 'token');
+    btn.classList.add('denied');
   }
 };
 
@@ -740,9 +757,21 @@ function updateNotifBtn(perm) {
 
 let swReg = null;
 async function registerSW() {
-  if ('serviceWorker' in navigator) {
-    swReg = await navigator.serviceWorker.register('firebase-messaging-sw.js');
+  if (!('serviceWorker' in navigator)) {
+    setStatus('not supported', 'sw');
+    return null;
+  }
+  try {
+    // Use relative path — works on GitHub Pages project subdirectories
+    const swPath = new URL('firebase-messaging-sw.js', window.location.href).pathname;
+    swReg = await navigator.serviceWorker.register(swPath);
+    await navigator.serviceWorker.ready;
+    setStatus('ok', 'sw');
     return swReg;
+  } catch(e) {
+    console.error('SW registration failed:', e);
+    setStatus('failed', 'sw');
+    return null;
   }
 }
 
@@ -787,8 +816,16 @@ if (Notification.permission === 'granted') {
       if (token) {
         const deviceId = getDeviceId();
         await setDoc(doc(db, 'tokens', deviceId), { token, updatedAt: Date.now(), deviceId });
+        setStatus('saved ✓', 'token');
+        const btn = document.getElementById('notif-btn');
+        if (btn) { btn.textContent = 'notifications on'; btn.classList.add('granted'); }
+      } else {
+        setStatus('empty', 'token');
       }
-    } catch(e) { console.warn('FCM refresh token failed:', e); }
+    } catch(e) {
+      setStatus(e.code || 'error', 'token');
+      console.warn('FCM refresh token failed:', e);
+    }
   });
 }
 
@@ -796,15 +833,41 @@ onSnapshot(tasksCol, (snapshot) => {
   tasks = snapshot.docs.map(d => d.data());
   tasks.sort((a,b) => (b.createdAt||'').localeCompare(a.createdAt||'') || (b.id||'').localeCompare(a.id||''));
   dbReady = true;
-  setStatus('synced');
+  setStatus('synced ✓', 'db');
   render();
   checkAndNotify();
 }, (err) => {
-  setStatus('offline');
+  setStatus('offline', 'db');
   console.error(err);
 });
 
 setInterval(() => { render(); checkAndNotify(); }, 60000);
+
+window.sendTestNotif = async function() {
+  const deviceId = getDeviceId();
+  const tokenDoc = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js')
+    .then(m => m.getDoc(m.doc(db, 'tokens', deviceId)));
+  if (!tokenDoc.exists()) {
+    alert('No token saved for this device. Enable notifications first.');
+    return;
+  }
+  const token = tokenDoc.data().token;
+  try {
+    const resp = await fetch('https://us-central1-reminders-88be0.cloudfunctions.net/testNotification', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ data: { token } })
+    });
+    const json = await resp.json();
+    if (json.result && json.result.success) {
+      setStatus('test sent ✓', 'token');
+    } else {
+      alert('Test failed: ' + JSON.stringify(json));
+    }
+  } catch(e) {
+    alert('Test error: ' + e.message);
+  }
+};
 </script>
 </body>
 </html>
