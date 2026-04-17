@@ -318,6 +318,7 @@
       <div class="form-group">
         <label for="remind-start">Start date</label>
         <input type="date" id="remind-start" />
+        <script>document.currentScript.previousElementSibling.value=new Date().toISOString().split("T")[0];</script>
       </div>
       <div class="form-group">
         <label for="remind-freq">Repeat</label>
