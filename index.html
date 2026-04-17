@@ -572,7 +572,7 @@ window.addTask = async function() {
     timeFrom: document.getElementById('time-from').value || '00:00',
     timeTo: document.getElementById('time-to').value || '23:59',
     done: false, createdAt: today(), snoozedUntil: null,
-    nextNotifyAt: isHourly ? Date.now() : null,
+    nextNotifyAt: isHourly ? 0 : null,
     activeDays: document.getElementById('task-days').value,
     category: document.getElementById('task-category').value
   };
@@ -685,6 +685,7 @@ function render() {
         <span class="task-name">${t.name}</span>
         <div class="task-actions">
           ${s!=='done'?`<button class="action-btn done-btn" onclick="markDone('${t.id}')">done</button>`:''}
+          <button class="action-btn" onclick="toggleEdit('${t.id}')">edit</button>
           <button class="action-btn del-btn" onclick="deleteTask('${t.id}')">remove</button>
         </div>
       </div>
@@ -701,6 +702,63 @@ function render() {
       ${t.note?`<div class="task-note">${t.note}</div>`:''}
       ${quietHint}
       ${snoozePart}
+      <div id="edit-panel-${t.id}" style="display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            <label style="font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;">Repeat</label>
+            <select id="edit-freq-${t.id}" style="font-size:13px;">
+              <option value="subhour-random" ${t.freq==='subhour-random'?'selected':''}>Every 20–30 min</option>
+              <option value="hourly-random" ${t.freq==='hourly-random'?'selected':''}>Every 1–2 hours</option>
+              <option value="1" ${t.freq===1?'selected':''}>Every day</option>
+              <option value="2" ${t.freq===2?'selected':''}>Every 2 days</option>
+              <option value="3" ${t.freq===3?'selected':''}>Every 3 days</option>
+              <option value="7" ${t.freq===7?'selected':''}>Every week</option>
+              <option value="14" ${t.freq===14?'selected':''}>Every 2 weeks</option>
+              <option value="30" ${t.freq===30?'selected':''}>Every month</option>
+            </select>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            <label style="font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;">Priority</label>
+            <select id="edit-priority-${t.id}" style="font-size:13px;">
+              <option value="high" ${t.priority==='high'?'selected':''}>High</option>
+              <option value="medium" ${t.priority==='medium'?'selected':''}>Medium</option>
+              <option value="low" ${t.priority==='low'?'selected':''}>Low</option>
+            </select>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            <label style="font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;">Window from</label>
+            <input type="time" id="edit-from-${t.id}" value="${t.timeFrom||'10:00'}" style="font-size:13px;" />
+          </div>
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            <label style="font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;">Window to</label>
+            <input type="time" id="edit-to-${t.id}" value="${t.timeTo||'22:00'}" style="font-size:13px;" />
+          </div>
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            <label style="font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;">Active days</label>
+            <select id="edit-days-${t.id}" style="font-size:13px;">
+              <option value="all" ${(t.activeDays||'all')==='all'?'selected':''}>Every day</option>
+              <option value="weekdays" ${t.activeDays==='weekdays'?'selected':''}>Weekdays only</option>
+              <option value="weekends" ${t.activeDays==='weekends'?'selected':''}>Weekends only</option>
+            </select>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            <label style="font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;">Category</label>
+            <select id="edit-cat-${t.id}" style="font-size:13px;">
+              <option value="both" ${(t.category||'both')==='both'?'selected':''}>Work & personal</option>
+              <option value="work" ${t.category==='work'?'selected':''}>Work</option>
+              <option value="personal" ${t.category==='personal'?'selected':''}>Personal</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:10px;">
+          <label style="font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;">Note</label>
+          <textarea id="edit-note-${t.id}" style="font-size:13px;min-height:50px;">${t.note||''}</textarea>
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:8px;">
+          <button class="btn" onclick="toggleEdit('${t.id}')">cancel</button>
+          <button class="btn btn-primary" onclick="saveEdit('${t.id}')">save</button>
+        </div>
+      </div>
     </div>`;
   }).join('');
 }
@@ -775,17 +833,40 @@ async function registerSW() {
   }
 }
 
-async function checkAndNotify() {
-  // FCM Cloud Functions handle delivery — this just keeps nextNotifyAt fresh
-  // for hourly/subhour tasks so the server knows when to send the next one
-  const due = tasks.filter(t => { const s = getStatus(t); return s === 'due' || s === 'overdue'; });
-  for (const t of due) {
-    if ((t.freq === 'hourly-random' || t.freq === 'subhour-random') &&
-        (!t.nextNotifyAt || Date.now() >= t.nextNotifyAt)) {
-      const next = Date.now() + (t.freq === 'subhour-random' ? randSubhourMs() : randHourlyMs());
-      await patchTask(t.id, { nextNotifyAt: next });
-    }
-  }
+window.toggleEdit = function(id) {
+  const panel = document.getElementById('edit-panel-' + id);
+  if (panel) panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+};
+
+window.saveEdit = async function(id) {
+  const freqRaw = document.getElementById('edit-freq-' + id).value;
+  const isHourly = freqRaw === 'hourly-random' || freqRaw === 'subhour-random';
+  const newFreq = isHourly ? freqRaw : parseInt(freqRaw);
+  const t = tasks.find(x => x.id === id);
+  const freqChanged = t && t.freq !== newFreq;
+
+  const updates = {
+    freq: newFreq,
+    priority: document.getElementById('edit-priority-' + id).value,
+    timeFrom: document.getElementById('edit-from-' + id).value,
+    timeTo: document.getElementById('edit-to-' + id).value,
+    activeDays: document.getElementById('edit-days-' + id).value,
+    category: document.getElementById('edit-cat-' + id).value,
+    note: document.getElementById('edit-note-' + id).value.trim()
+  };
+
+  // Reset nextNotifyAt to 0 if freq changed so it fires on next scheduler run
+  if (freqChanged && isHourly) updates.nextNotifyAt = 0;
+
+  await patchTask(id, updates);
+  const panel = document.getElementById('edit-panel-' + id);
+  if (panel) panel.style.display = 'none';
+};
+
+function checkAndNotify() {
+  // The Cloud Function exclusively manages nextNotifyAt and sends all notifications.
+  // The client must never write nextNotifyAt — doing so causes a race condition
+  // where the browser pushes the timestamp into the future before the server fires.
 }
 
 function isIOS() {
